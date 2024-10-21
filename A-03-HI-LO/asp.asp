@@ -6,6 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-    hi 
+<%
+if Request.SeverVariables("REQUEST_METHOD") = "POST" then
+dim maxNumber
+dim randomNumber
+dim guessNumber
+
+if Request.Form("maxNumber") <> "" then
+maxNumber=Request
+%>
 </body>
 </html>
