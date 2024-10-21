@@ -5,22 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hiloStart</title>
 </head>
-<body onload="userGreeting()">
+<body onload="userGreeting()" id="body">
     <script>
 
 function userGreeting() {
             document.getElementById("promptHeader").innerHTML = "Hi, please enter your name";
             document.getElementById("body").style.backgroundColor = "grey";
+            document.getElementById("submit").style.visibility = "hidden";
             const number = document.getElementById("numberInput");
-            document.getElementById("name").style.visibility = "hidden";
             number.style.visibility = "hidden";
         }
 
-    function validateName(event) 
+    function validateName() 
     {
-         // Prevent the form submission 
-        event.preventDefault(); 
-
+         
         // get the name and trim it 
         const name = document.getElementById("name").value.trim();
         const nameErrorElement = document.getElementById("nameError");
@@ -29,14 +27,49 @@ function userGreeting() {
         if (name.length === 0) 
         {
             nameErrorElement.innerHTML = "<p>Error: Name is empty</p>";
-        } else 
+        }
+        else 
         {
             nameErrorElement.innerHTML = "";  // Clear error message 
             userPromptForNumber(name); // call the function to prompt the user for a number 
         }
     }
+    function userPromptForNumber(name)
+         {
+            // change the background colour just to show that you are in a new page
+            document.getElementById("body").style.backgroundColor = "blue";
+            // hide the old prompts 
+            document.getElementById("submit").style.display = "none";
+            document.getElementById("name").style.visibility = "hidden";
+
+            // ask the user by name to enter a number over 1 
+            document.getElementById("promptHeader").innerHTML = "Hi " + name + ", please enter a max number over 1";
+
+            // Clear previous inputs
+            clearInputs();
+
+            // Create a texbox
+            const numberInput = document.createElement("input");
+            numberInput.type = "text";
+            numberInput.id = "numberInput";
+
+            // Create a submit button
+            const submitButton = document.createElement("button");
+            submitButton.innerHTML = "Submit number";
+            submitButton.onclick = function () 
+            {
+                numberChecker(name);
+            };
+
+            // Add to the textbox and submit button to the input container
+            const container = document.getElementById("inputContainer");
+            container.appendChild(numberInput);
+            container.appendChild(submitButton);
+        }
     function checkNum()
     {
+        document.getElementById("name").style.visibility = "hidden";
+        document.getElementById("promptHeader").innerHTML = "Hi, please enter your min number";
         const number = document.getElementById("numberInput").value.trim();
         if (number.length === 0 ) 
             {
@@ -49,16 +82,18 @@ function userGreeting() {
                 numberMsg.innerHTML = "<p>Error: You entered something that is not a number please enter a number greater than 1</p>";
                 numberMsg.style.color = "red";
             }
+
     }
 
   
     </script>
     
     <!--form that gets the name-->
-    <form action="" method="get" onsubmit="validateName(event)">
+    <form action="asp.asp" method="post" onsubmit="">
         <!--that texbox gets the name-->
         <input type="text" id="name">
         <input type="text" id="numberInput">
+        <input type="button" value="Submit name" onclick="validateName()" id="submitName">
          <!--button to submit the name-->
         <button type="submit" id="submit">Validate name</button>
     </form>
