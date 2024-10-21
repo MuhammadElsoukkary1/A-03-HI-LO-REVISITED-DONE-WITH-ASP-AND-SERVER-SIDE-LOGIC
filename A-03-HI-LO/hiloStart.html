@@ -38,7 +38,7 @@ function userGreeting() {
             // change the background colour just to show that you are in a new page
             document.getElementById("body").style.backgroundColor = "blue";
             // hide the old prompts 
-            document.getElementById("submit").style.display = "none";
+            
             document.getElementById("name").style.visibility = "hidden";
 
             // ask the user by name to enter a number over 1 
@@ -46,30 +46,22 @@ function userGreeting() {
 
             // Clear previous inputs
             clearInputs();
-
+            document.getElementById("submit").style.visibility = "visible";
+            document.getElementById("submit").value = "Generate random number";
             // Create a texbox
             const numberInput = document.createElement("input");
             numberInput.type = "text";
             numberInput.id = "numberInput";
-
-            // Create a submit button
-            const submitButton = document.createElement("button");
-            submitButton.innerHTML = "Submit number";
-            submitButton.onclick = function () 
-            {
-                numberChecker(name);
-            };
-
             // Add to the textbox and submit button to the input container
-            const container = document.getElementById("inputContainer");
-            container.appendChild(numberInput);
-            container.appendChild(submitButton);
+            const form = document.getElementById("form");
+            form.appendChild(numberInput);
         }
     function numberChecker(name)
     {
-        var isGood = false;
-        document.getElementById("promptHeader").innerHTML = "Hi, please enter your min number";
+        const numberMsg = document.getElementById("numberMsg");
         const number = document.getElementById("numberInput").value.trim();
+        var isGood = false;
+        
         if (number.length === 0 ) 
         {
             numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
@@ -88,6 +80,8 @@ function userGreeting() {
             isGood = true;
         }
 
+        return isGood;
+
     }
 
     function clearInputs() 
@@ -101,12 +95,12 @@ function userGreeting() {
     </script>
     
     <!--form that gets the name-->
-    <form action="asp.asp" method="post" onsubmit="">
+    <form action="asp.asp" method="post" onsubmit="return numberChecker()" id="form">
         <!--that texbox gets the name-->
         <input type="text" id="name">
         <input type="button" value="Submit name" onclick="validateName()" id="submitName">
          <!--button to submit the name-->
-        <button type="submit" id="submit">Validate name</button>
+        <input type="submit" id="submit" value=""></button>
     </form>
 
     <h2 id="promptHeader">Blank</h2>
