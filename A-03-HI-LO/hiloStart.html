@@ -12,7 +12,8 @@ function userGreeting() {
             document.getElementById("promptHeader").innerHTML = "Hi, please enter your name";
             document.getElementById("body").style.backgroundColor = "grey";
             const number = document.getElementById("numberInput");
-            number.style.visibility = "";
+            document.getElementById("name").style.visibility = "hidden";
+            number.style.visibility = "hidden";
         }
 
     function validateName(event) 
@@ -63,5 +64,7 @@ function userGreeting() {
     </form>
 
     <h2 id="promptHeader">Blank</h2>
+    <!-- Header for name errors-->
+    <h2 id="nameError" style="color: red;"></h2>
 </body>
 </html>
