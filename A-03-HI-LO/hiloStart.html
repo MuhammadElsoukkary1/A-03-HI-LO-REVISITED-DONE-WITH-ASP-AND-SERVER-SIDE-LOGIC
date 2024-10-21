@@ -3,9 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>hiloStart</title>
 </head>
 <body>
+    <script>
+        function validateName(event) 
+    {
+         // Prevent the form submission 
+        event.preventDefault(); 
+
+        // get the name and trim it 
+        const name = document.getElementById("name").value.trim();
+        const nameErrorElement = document.getElementById("nameError");
+
+        // check if the name has something in it if it does it can work if not then give an error message
+        if (name.length === 0) 
+        {
+            nameErrorElement.innerHTML = "<p>Error: Name is empty</p>";
+        } else 
+        {
+            nameErrorElement.innerHTML = "";  // Clear error message 
+            userPromptForNumber(name); // call the function to prompt the user for a number 
+        }
+    }
+    </script>
     
+    <!--form that gets the name-->
+    <form action="" method="get" onsubmit="validateName(event)">
+        <!--that texbox gets the name-->
+        <input type="text" id="name">
+         <!--button to submit the name-->
+        <button type="submit" id="submit">Validate name</button>
+    </form>
 </body>
 </html>
