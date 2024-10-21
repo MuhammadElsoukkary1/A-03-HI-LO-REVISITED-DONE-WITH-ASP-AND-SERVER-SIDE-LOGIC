@@ -5,9 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hiloStart</title>
 </head>
-<body>
+<body onload="userGreeting()">
     <script>
-        function validateName(event) 
+
+function userGreeting() {
+            document.getElementById("promptHeader").innerHTML = "Hi, please enter your name";
+            document.getElementById("body").style.backgroundColor = "grey";
+            const number = document.getElementById("numberInput");
+            number.style.visibility = "";
+        }
+
+    function validateName(event) 
     {
          // Prevent the form submission 
         event.preventDefault(); 
@@ -26,14 +34,34 @@
             userPromptForNumber(name); // call the function to prompt the user for a number 
         }
     }
+    function checkNum()
+    {
+        const number = document.getElementById("numberInput").value.trim();
+        if (number.length === 0 ) 
+            {
+                numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
+                numberMsg.style.color = "red";
+            }
+            // check if the user entered something that is not a number if yes give them an error
+            else if (isNaN(number))
+            {
+                numberMsg.innerHTML = "<p>Error: You entered something that is not a number please enter a number greater than 1</p>";
+                numberMsg.style.color = "red";
+            }
+    }
+
+  
     </script>
     
     <!--form that gets the name-->
     <form action="" method="get" onsubmit="validateName(event)">
         <!--that texbox gets the name-->
         <input type="text" id="name">
+        <input type="text" id="numberInput">
          <!--button to submit the name-->
         <button type="submit" id="submit">Validate name</button>
     </form>
+
+    <h2 id="promptHeader">Blank</h2>
 </body>
 </html>
