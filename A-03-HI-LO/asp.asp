@@ -8,14 +8,16 @@
 <body>
 
 <%
-formY = Request.Form("y")
+
 If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
+    name = Request.Form("name")
+    Response.Write(name)
     Dim maxNumber
     Dim randomNumber
     Dim guessNumber
     maxNumber = Request.Form("numberInput")
     Response.Write("You entered: " & maxNumber)
-    Response.Write(formY)
+    
 
     Dim min
     min=1
