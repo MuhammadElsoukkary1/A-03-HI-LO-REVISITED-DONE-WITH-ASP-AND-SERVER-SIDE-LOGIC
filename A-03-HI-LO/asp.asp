@@ -12,17 +12,13 @@ If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
     Dim maxNumber
     Dim randomNumber
     Dim guessNumber
-    Dim numberInputt 
-
-    If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
-    numberInputt = Request.Form("numberInput")
-    Response.Write("You entered: " & numberInputt)
-    End If
+    maxNumber = Request.Form("numberInput")
+    Response.Write("You entered: " & maxNumber)
 
     Dim min
-    min = 1
+    min=1
     Randomize
-    Response.Write(Int((maxNumber - min + 1) * Rnd + min))
+    Response.Write(Int((maxNumber - min + 1)*Rnd+min))
 
 End If
 %>
