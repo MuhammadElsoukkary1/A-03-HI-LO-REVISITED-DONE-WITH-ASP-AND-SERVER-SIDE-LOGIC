@@ -12,12 +12,12 @@ If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
     Dim maxNumber
     Dim randomNumber
     Dim guessNumber
+    Dim numberInputt 
 
-    'If Request.Form <> "" Then
-      'if(UCase(str) = "numberInput") then numberInputt = CInt(Request.Form(str).Item)
-      numberInputt = Request.Form("numberInput")
-        Response.Write(numberInputt)
-    'End If
+    If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
+    numberInputt = Request.Form("numberInput")
+    Response.Write("You entered: " & numberInputt)
+    End If
 
     Dim min
     min = 1
