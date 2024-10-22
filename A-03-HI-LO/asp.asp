@@ -6,22 +6,25 @@
     <title>Document</title>
 </head>
 <body>
+
 <%
-if Request.SeverVariables("REQUEST_METHOD") = "POST" then
-dim maxNumber
-dim randomNumber
-dim guessNumber
+If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
+    Dim maxNumber
+    Dim randomNumber
+    Dim guessNumber
 
-Dim max,min
-max=100
-min=1
-Randomize
-response.write(Int((max-min+1)*Rnd+min))
+    Dim max, min
+    max = 100
+    min = 1
+    Randomize
+    Response.Write(Int((max - min + 1) * Rnd + min))
 
-Response.Write maxNumber
-
-if Request.Form("maxNumber") <> "" then
-maxNumber=Request
+    If Request.Form("maxNumber") <> "" Then
+        maxNumber = Request.Form("maxNumber")
+        Response.Write maxNumber
+    End If
+End If
 %>
+
 </body>
 </html>
