@@ -18,7 +18,7 @@ If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
     If (maxNumber <= 1) Then 
     Response.Write("fuck u")
     else
-    Response.Write("Hi" & name " ready to guess a the random number!!!")
+    Response.Write("Hi " & name&" ready to guess a the random number!!!")
     Response.Write("You entered: " & maxNumber)
     end if 
     
