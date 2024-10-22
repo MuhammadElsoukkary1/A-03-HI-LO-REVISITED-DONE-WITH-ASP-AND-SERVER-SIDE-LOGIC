@@ -22,7 +22,7 @@ If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
     Dim min
     min=1
     Randomize
-    Response.Write(Int((maxNumber - min + 1)*Rnd+min))
+    Response.Write("random num is" &Int((maxNumber - min + 1)*Rnd+min))
 
 End If
 %>
