@@ -10,12 +10,12 @@
 <%
 
 If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
-    name = Request.Form("name")
-    Response.Write(name)
+    Dim name = Request.Form("name")
     Dim maxNumber
     Dim randomNumber
     Dim guessNumber
     maxNumber = Request.Form("numberInput")
+    Response.Write("You entered: " & name)
     Response.Write("You entered: " & maxNumber)
     
 
