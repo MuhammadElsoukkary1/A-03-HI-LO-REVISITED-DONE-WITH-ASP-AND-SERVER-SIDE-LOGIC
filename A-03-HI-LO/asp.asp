@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+
 <%
 if Request.SeverVariables("REQUEST_METHOD") = "POST" then
 dim maxNumber
