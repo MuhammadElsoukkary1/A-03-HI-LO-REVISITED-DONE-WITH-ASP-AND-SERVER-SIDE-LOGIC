@@ -7,7 +7,6 @@
 </head>
 <body>
 
-
 <%
 If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
     Dim maxNumber
@@ -20,20 +19,6 @@ If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
     Randomize
     Response.Write(Int((max - min + 1) * Rnd + min))
 
-Response.Write maxNumber
-
-if Request.Form("maxNumber") <> "" then
-maxNumber=Request.Form("numberInput")
-Response.Cookies("maxNumber")=maxNumber
-Response.Cookies("maxNumber").Expires=60%
-
-end if
- <script type="text/javascript">
-function random(maxiumNumber){
-        randomNumber= ((new Date().getTime())% maxiumNumber)+1;
-        return randomNumber;
-      }
- </script>
     If Request.Form("maxNumber") <> "" Then
         maxNumber = Request.Form("maxNumber")
         Response.Write maxNumber
