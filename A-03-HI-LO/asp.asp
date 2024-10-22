@@ -12,6 +12,8 @@ dim maxNumber
 dim randomNumber
 dim guessNumber
 
+Response.Write maxNumber
+
 if Request.Form("maxNumber") <> "" then
 maxNumber=Request
 %>
