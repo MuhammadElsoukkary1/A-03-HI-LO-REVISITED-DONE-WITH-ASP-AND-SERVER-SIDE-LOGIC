@@ -21,7 +21,17 @@ response.write(Int((max-min+1)*Rnd+min))
 Response.Write maxNumber
 
 if Request.Form("maxNumber") <> "" then
-maxNumber=Request
+maxNumber=Request.Form("numberInput")
+Response.Cookies("maxNumber")=maxNumber
+Response.Cookies("maxNumber").Expires=60%
+
+end if
+ <script type="text/javascript">
+function random(maxiumNumber){
+        randomNumber= ((new Date().getTime())% maxiumNumber)+1;
+        return randomNumber;
+      }
+ </script>
 %>
 </body>
 </html>
