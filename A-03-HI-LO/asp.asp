@@ -12,6 +12,12 @@ dim maxNumber
 dim randomNumber
 dim guessNumber
 
+Dim max,min
+max=100
+min=1
+Randomize
+response.write(Int((max-min+1)*Rnd+min))
+
 Response.Write maxNumber
 
 if Request.Form("maxNumber") <> "" then
