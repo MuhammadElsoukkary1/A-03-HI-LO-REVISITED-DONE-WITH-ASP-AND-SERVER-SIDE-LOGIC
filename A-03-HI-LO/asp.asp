@@ -15,7 +15,7 @@ If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
     Dim randomNumber
     Dim guessNumber
     maxNumber = Request.Form("numberInput")
-    If (maxNumber == 2) Then 
+    If (maxNumber = 2) Then 
     Response.Write("fuck u")
     else
     Response.Write("Hi ready to guess a the random number!!! " & name)
