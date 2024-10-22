@@ -10,7 +10,6 @@
 <%
 
 If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
-    Dim name 
     name = Request.Form("name")
     Dim maxNumber
     Dim randomNumber
