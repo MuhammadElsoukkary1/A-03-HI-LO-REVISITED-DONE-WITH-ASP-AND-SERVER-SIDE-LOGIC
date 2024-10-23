@@ -7,8 +7,6 @@
 </head>
 <body>
 <script language="javascript">
-  const numberMsg = document.getElementById("numberMsg");
-
     function numberChecker()
     {
         const numberStr = document.getElementById("guessNumber").value.trim(); 
@@ -48,6 +46,7 @@
     }
     function sucesss()
     {
+        const numberMsg = document.getElementById("numberMsg");
         numberMsg.innerHTML = "<p> You entered something that works fun </p>";
         numberMsg.style.color = "red";
 
@@ -114,9 +113,9 @@ processGuess()
 <form action="processGuess.asp" method="POST" name="guessForm"onsubmit="return numberChecker()">
     <p>Enter the number that you want to guess:</p>
     <input type="text" name="guessNumber" value="" size="20" id="guessNumber" autofocus />
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" onclick="numberChecker()" />
 <form action="hiloStart.html" method="POST" name="playAgain">
-    <input type="submit" value="Play Again" onclick=" return numberChecker()" />
+    <input type="submit" value="Play Again" />
 </form>
 
     <h2 id="numberMsg"></h2>
