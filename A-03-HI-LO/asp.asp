@@ -66,7 +66,7 @@ If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
 
   
     <form action="asp.asp" method="post" name="guessForm">
-      Response.Write("<h2>Hi " & name & ", ready to guess the random number!</h2>")
+      <h2>Hi <%= name %>, ready to guess the random number!</h2>
       <p>Enter the number that you want to guess</p>
 		  <input type="text" name="guessNumber" value="" size="20" autofocus />
 	    <input type="button" value="Submit" />
