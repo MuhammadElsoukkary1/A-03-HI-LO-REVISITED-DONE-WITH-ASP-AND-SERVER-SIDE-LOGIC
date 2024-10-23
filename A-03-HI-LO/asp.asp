@@ -14,7 +14,7 @@ Sub backend()
         Dim maxNumber, randomNumber, guessNumber
         maxNumber = CInt(Request.Form("numberInput")) ' Ensure valid conversion
 
-        If maxNumber <= 1 Then
+        If (maxNumber <= 1) Then
             Response.Write("Invalid input!")
         Else
             Response.Write("Hi " & name & ", ready to guess the random number!<br>")
@@ -32,7 +32,7 @@ Sub backend()
         Response.Cookies("name") = name
 
         ' Handle guesses
-        If Request.Form("guessNumber") <> "" Then
+        If Request.Form("guessForm") <> "" Then
             randomNumber = CInt(Response.Cookies("randomNumber"))
             min = CInt(Response.Cookies("min"))
             max = CInt(Response.Cookies("max"))
