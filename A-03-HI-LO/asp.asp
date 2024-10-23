@@ -33,7 +33,7 @@ If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
     Response.Cookies("min") = 1
     Response.Cookies("max") = maxNumber
     Response.Cookies("name") = name
-    Response.Write("random num is " &randomNumber& )
+    Response.Write("random num is " &randomNumber )
     
 
     if(Request.Form("guessNumber") <> "") 
