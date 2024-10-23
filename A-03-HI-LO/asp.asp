@@ -32,7 +32,7 @@ Sub backend()
         Response.Cookies("name") = name
 
         ' Handle guesses
-        If Request.Form("guessForm") <> "" Then
+        If Request.Form("guessNumber") <> "" Then
             randomNumber = CInt(Response.Cookies("randomNumber"))
             min = CInt(Response.Cookies("min"))
             max = CInt(Response.Cookies("max"))
