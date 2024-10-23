@@ -71,7 +71,7 @@ backend()
 %>
 
 <!-- HTML Form -->
-<form action="asp.asp" method="POST" name="guessForm">
+<form action="processGuess.asp" method="POST" name="guessForm">
     <h2>Hi <%= name %></h2>
     <p>Enter the number that you want to guess:</p>
     <input type="text" name="guessNumber" value="" size="20" autofocus />
