@@ -46,6 +46,7 @@ If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
 
     If guessNumber < min Or guessNumber > max Then
         Response.Write("<h2>Error: Your guess is out of range!</h2>")
+
     ElseIf guessNumber < randomNumber Then
         Response.Write("<h2>Your guess of " & guess & " is too low!</h2>")
         min = guessNumber ' Update the minimum range
@@ -58,7 +59,7 @@ If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
             Response.Cookies("min") = ""
             Response.Cookies("max") = ""
             Response.Cookies("name") = ""
-            Exit Sub
+            'Exit Sub
     End If
     Response.Cookies("min") = min
     Response.Cookies("max") = max
@@ -72,6 +73,7 @@ If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
 	    <input type="button" value="Submit" />
     </form>
 End If
+Exit Sub
 %>
 
 </body>
