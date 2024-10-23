@@ -27,7 +27,7 @@ If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
 
     Dim min
     min=1
-    randomNumber=&Int((maxNumber - min + 1)*Rnd+min)
+    randomNumber=Int((maxNumber - min + 1)*Rnd+min)
     Randomize
     Response.Cookies("randomNumber") = randomNumber
     Response.Cookies("min") = 1
