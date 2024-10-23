@@ -16,30 +16,35 @@
         function numberChecker()
     {
         const numberMsg = document.getElementById("numberMsg");
-        const number = document.getElementById("numberInput").value.trim();
+        const numberStr = document.getElementById("numberInput").value.trim(); 
         var isGood = false;
+        const number = Number(numberStr);
         
         if (number.length === 0 ) 
         {
+            clearInputs();
             numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
             numberMsg.style.color = "red";
         }
             // check if the user entered something that is not a number if yes give them an error
         else if (isNaN(number))
         {
+            clearInputs();
             numberMsg.innerHTML = "<p>Error: You entered something that is not a number please enter a number greater than 1</p>";
             numberMsg.style.color = "red";
         
         }
         else if (!Number.isInteger(number))
         {
-
-        }numberMsg.innerHTML = "<p>Error: You entered something that is not a int please enter a number greater than 1</p>";
-        numberMsg.style.color = "red";
+         clearInputs();
+          numberMsg.innerHTML = "<p>Error: You entered something that is not a int please enter a number greater than 1</p>";
+         numberMsg.style.color = "red";
+        }
         else
          {
             numberMsg.innerHTML = ""; // Clear previous error
             isGood = true;
+            sucesss();
         }
 
         return isGood;
@@ -47,16 +52,24 @@
     }
     function sucesss()
     {
+        numberMsg.innerHTML = "<p> You entered something that works fun </p>";
+        numberMsg.style.color = "red";
 
+    }
+
+    function clearInputs() 
+    {
+        const container = document.getElementById("inputContainer");
+        container.innerHTML = "";  // Clear the container for new inputs
     }
     </script>
     <h2 id="promptHeader">Blank</h2>
     <!--form that gets the name-->
     <form method="POST" id="form">
         <!--that texbox gets the name-->
-        <input type="text" id="numberInput" name="numberInput" onclick="numberChecker()">
+        <input type="text" id="numberInput" name="numberInput">
          <!--button to submit the name-->
-        <input type="button" id="submitBtn" value="Submit"></button>
+        <input type="button" id="submitBtn" value="Submit" onclick="numberChecker()"></button>
     </form>
 
     

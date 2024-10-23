@@ -7,7 +7,57 @@
 </head>
 <body>
 <script language="javascript">
+  const numberMsg = document.getElementById("numberMsg");
 
+    function numberChecker()
+    {
+        const numberStr = document.getElementById("guessNumber").value.trim(); 
+        var isGood = false;
+        const number = Number(numberStr);
+        
+        if (number.length === 0 ) 
+        {
+            clearInputs();
+            numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
+            numberMsg.style.color = "red";
+            
+        }
+            // check if the user entered something that is not a number if yes give them an error
+        else if (isNaN(number))
+        {
+            clearInputs();
+            numberMsg.innerHTML = "<p>Error: You entered something that is not a number please enter a number greater than 1</p>";
+            numberMsg.style.color = "red";
+        
+        }
+        else if (!Number.isInteger(number))
+        {
+         clearInputs();
+          numberMsg.innerHTML = "<p>Error: You entered something that is not a int please enter a number greater than 1</p>";
+         numberMsg.style.color = "red";
+        }
+        else
+         {
+            numberMsg.innerHTML = ""; // Clear previous error
+            isGood = true;
+            sucesss();
+        }
+
+        return isGood;
+
+    }
+    function sucesss()
+    {
+        numberMsg.innerHTML = "<p> You entered something that works fun </p>";
+        numberMsg.style.color = "red";
+
+    }
+
+    function clearInputs() 
+    {
+        const container = document.getElementById("inputContainer");
+        container.innerHTML = "";  // Clear the container for new inputs
+    }
 </script>
 <%
 Sub processGuess()
@@ -61,13 +111,16 @@ End Sub
 ' Call the function to process the guess
 processGuess()
 %>
-<!-- HTML Form -->
-<form action="processGuess.asp" method="POST" name="guessForm">
+<form action="processGuess.asp" method="POST" name="guessForm"onsubmit="return numberChecker()">
     <p>Enter the number that you want to guess:</p>
-    <input type="text" name="guessNumber" value="" size="20" autofocus />
+    <input type="text" name="guessNumber" value="" size="20" id="guessNumber" autofocus />
     <input type="submit" value="Submit" />
 <form action="hiloStart.html" method="POST" name="playAgain">
-    <input type="submit" value="Play Again" />
+    <input type="submit" value="Play Again" onclick=" return numberChecker()" />
 </form>
+
+    <h2 id="numberMsg"></h2>
+    <h2 id="nameError" style="color: red;"></h2>
+    <div id="inputContainer"></div>
 </body>
 </html>
