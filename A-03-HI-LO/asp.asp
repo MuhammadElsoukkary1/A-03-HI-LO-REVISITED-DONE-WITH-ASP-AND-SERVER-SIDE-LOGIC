@@ -11,6 +11,7 @@
 </script>
 <%
 
+Sub backend()
 If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
     name = Request.Form("name")
     Dim maxNumber
@@ -34,9 +35,7 @@ If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
     Response.Cookies("max") = maxNumber
     Response.Cookies("name") = name
     Response.Write("random num is " &randomNumber )
-    
-    guessNumber=Request.Form("guessNumber")
-    if(guessNumber <> "") 
+     
 
     if(Request.Form("guessNumber") <> "")  Then
     randomNumber = CInt(Request.Cookies("randomNumber"))
@@ -63,20 +62,23 @@ If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
             Response.Cookies("name") = ""
             'Exit Sub
     End If
+   
+
     Response.Cookies("min") = min
     Response.Cookies("max") = max
-    Response.Write("<p>Your current guessing range is: " & min & " to " & max & "</p>")
+    Response.Write("<p>Your current guessing range is: " & min & " to " & max & "</p>")   
 
-  
-    <form action="asp.asp" method="POST" name="guessForm">
-      <h2>Hi <%= name %>, ready to guess the random number!</h2>
-      <p>Enter the number that you want to guess</p>
-		  <input type="text" name="guessNumber" value="" size="20" autofocus />
-	    <input type="button" value="Submit" />
-    </form>
 End If
 Exit Sub
 %>
 
+<form action="asp.asp" method="POST" name="guessForm">
+    <h2>Hi <%= name %></h2>
+    <p>Enter the number that you want to guess:</p>
+    <input type="text" name="guessNumber" value="guessNumber" size="20" autofocus />
+    
+    <input type="submit" value="Submit" />
+</form>
+ 
 </body>
 </html>
