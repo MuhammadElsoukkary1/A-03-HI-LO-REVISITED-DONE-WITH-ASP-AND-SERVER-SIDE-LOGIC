@@ -35,6 +35,8 @@ If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
     Response.Cookies("name") = name
     Response.Write("random num is " &randomNumber )
     
+    guessNumber=Request.Form("guessNumber")
+    if(guessNumber <> "") 
 
     if(Request.Form("guessNumber") <> "")  Then
     randomNumber = CInt(Request.Cookies("randomNumber"))
