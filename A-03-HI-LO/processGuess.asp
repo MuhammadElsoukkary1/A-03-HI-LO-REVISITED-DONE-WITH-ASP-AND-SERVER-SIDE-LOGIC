@@ -6,6 +6,9 @@
     <title>After Guess</title>
 </head>
 <body>
+<script language="javascript">
+
+</script>
 <%
 Sub processGuess()
     ' Declare all variables properly
@@ -58,22 +61,13 @@ End Sub
 ' Call the function to process the guess
 processGuess()
 %>
-
-
-we have to find some way to post the name the way we could do it is through an asp page right 
-so what we need to do is create an asp page that will get the max number and will also get the name using asp 
-no duh right which we can then use the hi code u created before to display in html we will need to make sure that this page
-is only used when the user clicks play again not all the time beacuse it is a big pain in the ass to try and create if statments that would 
-
-
 <!-- HTML Form -->
 <form action="processGuess.asp" method="POST" name="guessForm">
     <p>Enter the number that you want to guess:</p>
     <input type="text" name="guessNumber" value="" size="20" autofocus />
     <input type="submit" value="Submit" />
 <form action="hiloStart.html" method="POST" name="playAgain">
-    <input type="text" name="guessNumber" value="" size="20" autofocus />
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Play Again" />
 </form>
 </body>
 </html>

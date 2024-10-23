@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hiloStart</title>
 </head>
-<body onload="userPromptForNumber" id="body">
-    <h2>Hi <%= name %>, please enter a max number over 1.</h2>
+<body onload="userPromptForNumber()" id="body">
+     <p>
+        Hi 
+        <%= Request.Cookies("username") <> "" ? Request.Cookies("username") : "Guest" %>, 
+        please enter a max number over 1.
+    </p>
     <script>
     function userPromptForNumber()
          {
@@ -70,6 +74,7 @@
 
     
     <h2 id="numberMsg"></h2>
+    
     <div id="inputContainer"></div>
 </body>
 </html>
