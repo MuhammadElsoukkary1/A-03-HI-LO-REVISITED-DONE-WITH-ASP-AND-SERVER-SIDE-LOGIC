@@ -36,7 +36,7 @@ If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
     Response.Write("random num is " &randomNumber )
     
 
-    if(Request.Form("guessNumber") <> "") 
+    if(Request.Form("guessNumber") <> "")  Then
     randomNumber = CInt(Request.Cookies("randomNumber"))
     min = CInt(Request.Cookies("min"))
     max = CInt(Request.Cookies("max"))
