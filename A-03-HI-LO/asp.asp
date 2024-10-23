@@ -68,7 +68,7 @@ If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
     Response.Write("<p>Your current guessing range is: " & min & " to " & max & "</p>")
 
   
-    <form action="asp.asp" method="post" name="guessForm">
+    <form action="asp.asp" method="POST" name="guessForm">
       <h2>Hi <%= name %>, ready to guess the random number!</h2>
       <p>Enter the number that you want to guess</p>
 		  <input type="text" name="guessNumber" value="" size="20" autofocus />
