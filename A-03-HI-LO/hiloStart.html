@@ -65,21 +65,21 @@ function userGreeting() {
         
         if (number.length === 0 ) 
         {
-            clearInputs();
+           
             numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
             numberMsg.style.color = "red";
         }
             // check if the user entered something that is not a number if yes give them an error
         else if (isNaN(number))
         {
-            clearInputs();
+            
             numberMsg.innerHTML = "<p>Error: You entered something that is not a number please enter a number greater than 1</p>";
             numberMsg.style.color = "red";
         
         }
         else if (!Number.isInteger(number))
         {
-           clearInputs();
+          
            numberMsg.innerHTML = "<p>Error: You entered something that is not a int please enter a number greater than 1</p>";
            numberMsg.style.color = "red";
         }
