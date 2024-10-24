@@ -115,6 +115,9 @@ End Sub
 ' Call the backend function
 backend()
 %>
+
+
+
 <form action="processGuess.asp" method="POST" name="guessForm"onsubmit="return numberChecker()">
     <p>Enter the number that you want to guess:</p>
     <input type="text" name="guessNumber" value="" size="20" id="guessNumber" autofocus />
