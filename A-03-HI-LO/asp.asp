@@ -1,93 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body onload="pageLoad()">
-<script language="javascript">
-    function pageLoad() {
-            document.getElementById("playAgain").style.visibility = "hidden";
-        }
-    function numberChecker()
-    {
-        const numberStr = document.getElementById("guessNumber").value.trim(); 
-        var isGood = false;
-        const number = Number(numberStr);
-        
-        if (number.length === 0 ) 
-        {
-            clearInputs();
-            numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
-            numberMsg.style.color = "red";
-            
-        }
-        else if (isNaN(number))
-        {
-            clearInputs();
-            numberMsg.innerHTML = "<p>Error: You entered something that is not a number please enter a number greater than 1</p>";
-            numberMsg.style.color = "red";
-        
-        }
-        else if (!Number.isInteger(number))
-        {
-         clearInputs();
-          numberMsg.innerHTML = "<p>Error: You entered something that is not a int please enter a number greater than 1</p>";
-         numberMsg.style.color = "red";
-        }
-        else
-         {
-            numberMsg.innerHTML = ""; // Clear previous error
-            isGood = true;
-            sucesss();
-        }
-    }
-    function clearInputs() 
-    {
-        const container = document.getElementById("inputContainer");
-        container.innerHTML = "";  // Clear the container for new inputs
-    }
-</script>
 <%
-dim name
- if (Request.Cookies("name") <> "") then
-     name = Request.Cookies("name")
-    else
-    End if
+' Ensure that session state is enabled at the top of your ASP page
+Session.LCID = 1033 ' Optional: set the locale
+Session.Timeout = 20 ' Optional: session timeout in minutes
+
+' Function to handle the backend logic
 Sub backend()
-dim name
-    If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
-        
-        name = Request.Form("name")
-        Dim maxNumber, randomNumber, guessNumber
-        maxNumber = CInt(Request.Form("numberInput")) ' Ensure valid conversion
-    maxNumber = CInt(Request.Form("numberInput")) ' Ensure valid conversion
+    Dim name, maxNumber, randomNumber, guessNumber, min
+
+    ' Check if session variables exist
+    If Not IsEmpty(Session("name")) Then
+        name = Session("name")
+        Response.Write("Hi " & name & ", ready to guess the random number!<br>")
     End If
-        If (maxNumber <= 1) Then
-            Response.Write("Invalid input!")
-        Else
-            Response.Write("Hi " & name & ", ready to guess the random number!<br>")
-        End If
 
-        Dim min
-        min = 1
-        Randomize ' Correct placement of Randomize
-        randomNumber = Int((maxNumber - min + 1) * Rnd + min)
-
-        ' Store values in cookies
-        Response.Cookies("randomNumber") = randomNumber
-        Response.Cookies("min") = min
-        Response.Cookies("max") = maxNumber
-        Response.Cookies("name") = name
-
-        ' Handle guesses
+    ' Handle new game or guessing based on POST request
+    If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
         If Request.Form("guessNumber") <> "" Then
-            randomNumber = CInt(Response.Cookies("randomNumber"))
-            min = CInt(Response.Cookies("min"))
-            max = CInt(Response.Cookies("max"))
-            name = Response.Cookies("name")
-            guessNumber = CInt(Request.Form("guessNumber")) ' Assign correctly
+            ' Handle the guess
+            randomNumber = CInt(Session("randomNumber"))
+            min = CInt(Session("min"))
+            max = CInt(Session("max"))
+            guessNumber = CInt(Request.Form("guessNumber"))
 
             ' Validate and compare guess
             If guessNumber < min Or guessNumber > max Then
@@ -100,37 +33,104 @@ dim name
                 max = guessNumber ' Update the maximum range
             Else
                 Response.Write("<h2>Congratulations! You guessed the number: " & randomNumber & "!</h2>")
-                ' Clear cookies for a new game
-                 Response.Cookies("randomNumber").Expires = Date - 1
-                Response.Cookies("min").Expires = Date - 1
-                Response.Cookies("max").Expires = Date - 1
-                Response.Redirect "playAgainPage.html" 
+                ' Clear session variables for a new game
+                Session("randomNumber") = Null
+                Session("min") = Null
+                Session("max") = Null
+                Response.Redirect "playAgainPage.html"
             End If
 
-            ' Update cookies with new min/max range
-            Response.Cookies("min") = min
-            Response.Cookies("max") = max
+            ' Update session variables with new min/max range
+            Session("min") = min
+            Session("max") = max
             Response.Write("<p>Your current guessing range is: " & min & " to " & max & "</p>")
+        Else
+            ' Process starting a new game
+            name = Request.Form("name")
+            maxNumber = CInt(Request.Form("numberInput")) ' Ensure valid conversion
+
+            If (maxNumber <= 1) Then
+                Response.Write("<h2>Invalid input!</h2>")
+            Else
+                ' Set up the game with new values
+                min = 1
+                Randomize
+                randomNumber = Int((maxNumber - min + 1) * Rnd + min)
+
+                ' Store values in session
+                Session("randomNumber") = randomNumber
+                Session("min") = min
+                Session("max") = maxNumber
+                Session("name") = name
+
+                Response.Write("Hi " & name & ", ready to guess the random number!<br>")
+            End If
         End If
-    Exit Sub ' Ensure Sub ends properly
+    End If
 End Sub
 
 ' Call the backend function
 backend()
 %>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+</head>
+<body onload="pageLoad()">
+<script language="javascript">
+    function pageLoad() {
+        document.getElementById("playAgain").style.visibility = "hidden";
+    }
 
+    function numberChecker() {
+        const numberStr = document.getElementById("guessNumber").value.trim();
+        const numberMsg = document.getElementById("numberMsg");
+        let isGood = false;
+        const number = Number(numberStr);
 
-<form action="processGuess.asp" method="POST" name="guessForm"onsubmit="return numberChecker()">
+        if (numberStr.length === 0) {
+            clearInputs();
+            numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
+            numberMsg.style.color = "red";
+        } else if (isNaN(number)) {
+            clearInputs();
+            numberMsg.innerHTML = "<p>Error: You entered something that is not a number, please enter a number greater than 1</p>";
+            numberMsg.style.color = "red";
+        } else if (!Number.isInteger(number)) {
+            clearInputs();
+            numberMsg.innerHTML = "<p>Error: You entered something that is not an integer, please enter a whole number</p>";
+            numberMsg.style.color = "red";
+        } else {
+            numberMsg.innerHTML = ""; // Clear previous error
+            isGood = true;
+            return true; // Allow the form to be submitted
+        }
+
+        return false; // Prevent the form submission
+    }
+
+    function clearInputs() {
+        const container = document.getElementById("inputContainer");
+        container.innerHTML = "";  // Clear the container for new inputs
+    }
+</script>
+
+<form action="processGuess.asp" method="POST" name="guessForm" onsubmit="return numberChecker()">
     <p>Enter the number that you want to guess:</p>
     <input type="text" name="guessNumber" value="" size="20" id="guessNumber" autofocus />
-    <input type="submit" value="Submit" onclick="numberChecker()" />
-<form action="hiloStart.html" method="POST" name="playAgain">
-    <input type="submit" value="Play Again" id="playAgain"/>
+    <input type="submit" value="Submit" />
 </form>
 
-    <h2 id="numberMsg"></h2>
-    <h2 id="nameError" style="color: red;"></h2>
-    <div id="inputContainer"></div>
+<form action="hiloStart.html" method="POST" name="playAgain">
+    <input type="submit" value="Play Again" id="playAgain" />
+</form>
+
+<h2 id="numberMsg"></h2>
+<h2 id="nameError" style="color: red;"></h2>
+<div id="inputContainer"></div>
 </body>
 </html>
