@@ -12,6 +12,7 @@ If Not IsEmpty(Session("name")) Then
 Else
     Response.Write("No name provided. Please enter your name.")
     Response.Redirect "hiloStart.html" 
+    Response.End ' Ensure no further processing happens after redirect
 End If
 %>
 
@@ -35,8 +36,7 @@ End If
         document.getElementById("submit").value = "Generate random number";
     }
 
-    function numberChecker() 
-    {
+    function numberChecker() {
         const numberStr = document.getElementById("numberInput").value.trim();
         const numberMsg = document.getElementById("numberMsg");
         let isGood = false;
@@ -44,15 +44,15 @@ End If
 
         if (numberStr.length === 0) {
             clearInputs();
-            numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
+            numberMsg.innerHTML = "<p>Error: Please enter a number; you entered nothing.</p>";
             numberMsg.style.color = "red";
-        } else if (isNaN(numberStr)) {
+        } else if (isNaN(number)) {
             clearInputs();
-            numberMsg.innerHTML = "<p>Error: You entered something that is not a number, please enter a number greater than 1</p>";
+            numberMsg.innerHTML = "<p>Error: You entered something that is not a number; please enter a valid number.</p>";
             numberMsg.style.color = "red";
         } else if (!Number.isInteger(number)) {
             clearInputs();
-            numberMsg.innerHTML = "<p>Error: You entered something that is not an integer, please enter a whole number</p>";
+            numberMsg.innerHTML = "<p>Error: Please enter a whole number.</p>";
             numberMsg.style.color = "red";
         } else {
             numberMsg.innerHTML = ""; // Clear previous error
@@ -63,7 +63,6 @@ End If
         return false; // Prevent the form submission
     }
     
-
     function clearInputs() {
         const container = document.getElementById("inputContainer");
         container.innerHTML = "";  // Clear the container for new inputs
@@ -72,9 +71,9 @@ End If
 
     <!-- Form that gets the number input -->
     <form action="asp.asp" method="POST" onsubmit="return numberChecker()" id="form">
-        <input type="text" id="numberInput" name="numberInput" placeholder="Enter a number greater than 1">
+        <input type="text" id="numberInput" name="numberInput" placeholder="Enter a number">
         <!-- Button to submit the number -->
-        <input type="submit" id="submit" value="Submit">
+        <input type="submit" id="submit" value="Submit" style="visibility: hidden;"> <!-- Initially hidden -->
     </form>
 
     <h2 id="numberMsg"></h2>
