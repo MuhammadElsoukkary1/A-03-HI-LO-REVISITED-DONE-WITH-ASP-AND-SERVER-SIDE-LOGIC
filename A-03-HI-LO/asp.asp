@@ -50,6 +50,11 @@
     }
 </script>
 <%
+dim name
+ if (Request.Cookies("name") <> "") then
+     name = Request.Cookies("name")
+    else
+    End if
 Sub backend()
 dim name
     If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
@@ -57,8 +62,6 @@ dim name
         name = Request.Form("name")
         Dim maxNumber, randomNumber, guessNumber
         maxNumber = CInt(Request.Form("numberInput")) ' Ensure valid conversion
-    Else Request.Cookies("name") <> ""
-     name = Request.Cookies("name")
     maxNumber = CInt(Request.Form("numberInput")) ' Ensure valid conversion
     End If
         If (maxNumber <= 1) Then
