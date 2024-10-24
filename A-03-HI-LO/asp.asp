@@ -11,11 +11,16 @@ Sub backend()
     If (Not IsEmpty(Session("name"))) Then
         name = Session("name")
         Response.Write("Hi " & name & ", ready to guess the random number!<br>")
-        Session("name") = name
     End If
 
     ' Handle new game or guessing based on POST request
     If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
+        ' Validate and prevent overwriting the session with blank data
+        If Trim(Request.Form("name")) <> "" Then
+            name = Request.Form("name")
+            Session("name") = name
+        End If
+
         If Request.Form("guessNumber") <> "" Then
             ' Handle the guess
             randomNumber = CInt(Session("randomNumber"))
@@ -38,7 +43,6 @@ Sub backend()
                 Session("randomNumber") = Null
                 Session("min") = Null
                 Session("max") = Null
-                Session("name") = name
                 Response.Redirect "playAgainageP.html"
             End If
 
@@ -48,7 +52,10 @@ Sub backend()
             Response.Write("<p>Your current guessing range is: " & min & " to " & max & "</p>")
         Else
             ' Process starting a new game
-            name = Request.Form("name")
+            If Trim(name) = "" Then
+                name = Request.Form("name")
+            End If
+
             maxNumber = CInt(Request.Form("numberInput")) ' Ensure valid conversion
 
             If (maxNumber <= 1) Then
@@ -63,7 +70,6 @@ Sub backend()
                 Session("randomNumber") = randomNumber
                 Session("min") = min
                 Session("max") = maxNumber
-                Session("name") = name
 
                 Response.Write("Hi " & name & ", ready to guess the random number!<br>")
             End If
