@@ -51,6 +51,12 @@
 </script>
 <%
 Sub backend()
+ If Request.Cookies("name") <> "" Then
+     name = Request.Cookies("name")
+     Response.Write("Hi " & name & ", ready to guess the random number!<br>")
+    Else
+    Response.Write("No name man ")
+End If
     If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
         name = Request.Form("name")
         Dim maxNumber, randomNumber, guessNumber
