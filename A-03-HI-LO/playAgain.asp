@@ -6,30 +6,19 @@
     <title>hiloStart</title>
 </head>
 <body onload="userPromptForNumber()" id="body">
-     <p>
-       <%
-      If Request.Cookies("name") <> "" Then
-     name = Request.Cookies("name")
-     Response.Write("Hi " & name & ", ready to guess the random number!<br>")
-    Else
-    Response.Write("No name man ")
-End If
-%>
-
-    </p>
     <script>
     function userPromptForNumber()
          {
-            ' change the background colour just to show that you are in a new page
+            //change the background colour just to show that you are in a new page
             document.getElementById("body").style.backgroundColor = "blue";
-            ' hide the old prompts 
-            ' ask the user by name to enter a number over 1 
-            ' Clear previous inputs
+            //hide the old prompts 
+            //ask the user by name to enter a number over 1 
+            // Clear previous inputs
             clearInputs();
             document.getElementById("submit").style.visibility = "visible";
             document.getElementById("numberInput").style.visibility = "visible";
             document.getElementById("submit").value = "Generate random number";
-            ' Create a texbox
+            //Create a texbox
             
         }
     function numberChecker()
@@ -66,8 +55,14 @@ End If
         container.innerHTML = "";  // Clear the container for new inputs
     }
     </script>
-
-    <h2 id="promptHeader">Blank</h2>
+     <%
+      If Request.Cookies("name") <> "" Then
+     name = Request.Cookies("name")
+     Response.Write("Hi " & name & ", ready to guess the random number!<br>")
+    Else
+    Response.Write("No name man ")
+End If
+%>
     <!--form that gets the name-->
     <form action="asp.asp" method="POST" onsubmit="return numberChecker()" id="form">
         <input type="text" id="numberInput" name="numberInput">

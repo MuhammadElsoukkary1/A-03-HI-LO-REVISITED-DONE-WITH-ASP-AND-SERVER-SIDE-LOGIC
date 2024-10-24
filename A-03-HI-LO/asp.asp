@@ -42,19 +42,7 @@
             isGood = true;
             sucesss();
         }
-
-        return isGood;
-
     }
-    function sucesss()
-    {
-        const numberMsg = document.getElementById("numberMsg");
-        numberMsg.innerHTML = "<p> You entered something that works fun </p>";
-        numberMsg.style.color = "red";
-        document.getElementById("playAgain").style.visibility = "visible";
-
-    }
-
     function clearInputs() 
     {
         const container = document.getElementById("inputContainer");
@@ -105,10 +93,10 @@ Sub backend()
             Else
                 Response.Write("<h2>Congratulations! You guessed the number: " & randomNumber & "!</h2>")
                 ' Clear cookies for a new game
-                Response.Cookies("randomNumber") = ""
-                Response.Cookies("min") = ""
-                Response.Cookies("max") = ""
-                Response.Cookies("name") = ""
+                 Response.Cookies("randomNumber").Expires = Date - 1
+                Response.Cookies("min").Expires = Date - 1
+                Response.Cookies("max").Expires = Date - 1
+                Response.Redirect "playAgainPage.html" 
             End If
 
             ' Update cookies with new min/max range
