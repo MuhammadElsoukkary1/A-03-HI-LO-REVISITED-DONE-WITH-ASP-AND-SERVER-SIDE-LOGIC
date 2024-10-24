@@ -15,7 +15,6 @@ Else
     Response.End ' Ensure no further processing happens after redirect
 End If
 %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +24,16 @@ End If
 </head>
 <body onload="userPromptForNumber()" id="body">
     <script>
+     //
+        // FUNCTION      : userPromptForNumber
+        // DESCRIPTION   : 
+        //   This function asks the user for a number and adds a textbox and button, 
+        //   then calls a checker function to validate the number once the button is clicked.
+        // PARAMETERS    : 
+        //   name string : name of the user
+        // RETURNS       : 
+        //   N/A : nothing
+        //
     function userPromptForNumber() {
         // Change the background color to show a new page
         document.getElementById("body").style.backgroundColor = "blue";

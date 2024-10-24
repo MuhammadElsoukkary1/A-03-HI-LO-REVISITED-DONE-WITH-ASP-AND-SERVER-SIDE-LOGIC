@@ -8,91 +8,145 @@
 <body onload="userGreeting()" id="body">
     <script>
 
-function userGreeting() {
-            document.getElementById("promptHeader").innerHTML = "Hi, please enter your name";
-            document.getElementById("body").style.backgroundColor = "grey";
-            document.getElementById("submit").style.visibility = "hidden";
-            document.getElementById("numberInput").style.visibility = "hidden";
-           
-        }
+     //
+     // FUNCTION      : userGreeting
+     // DESCRIPTION   : 
+     //   This function greets the user by prompting them to enter their name.
+     //   It also hides the number input and submission elements until the name is validated.
+     // PARAMETERS    : 
+     //   None
+     // RETURNS       : 
+     //   N/A : nothing
+     //
+    function userGreeting() 
+    {
+        // Display a prompt for the user to enter their name
+        document.getElementById("promptHeader").innerHTML = "Hi, please enter your name";
+        // Change background color to grey for user interface indication
+        document.getElementById("body").style.backgroundColor = "grey";
+        // Hide the submit button and number input field initially
+        document.getElementById("submit").style.visibility = "hidden";
+        document.getElementById("numberInput").style.visibility = "hidden";
+    }
 
+     //
+     // FUNCTION      : validateName
+     // DESCRIPTION   : 
+     //   This function retrieves the name entered by the user, trims any leading or trailing whitespace,
+     //   and checks if the name is empty. If it is empty, an error message is displayed.
+     //   Otherwise, it proceeds to prompt the user for a number.
+     // PARAMETERS    : 
+     //   event: event onclick (not used in this implementation)
+     // RETURNS       : 
+     //   N/A : nothing
+     //
     function validateName() 
     {
-         
-        // get the name and trim it 
+        // Get the name from the input field and trim whitespace
         const name = document.getElementById("name").value.trim();
         const nameErrorElement = document.getElementById("nameError");
 
-        // check if the name has something in it if it does it can work if not then give an error message
+        // Check if the name is empty
         if (name.length === 0) 
         {
-            clearInputs();
-            nameErrorElement.innerHTML = "<p>Error: Name is empty</p>";
+            clearInputs(); // Clear any previous inputs
+            nameErrorElement.innerHTML = "<p>Error: Name is empty</p>"; // Display error message
         }
-       
         else 
         {
             nameErrorElement.innerHTML = "";  // Clear error message 
-            userPromptForNumber(name); // call the function to prompt the user for a number 
+            userPromptForNumber(name); // Call the function to prompt the user for a number 
         }
     }
+
+    //
+    // FUNCTION      : userPromptForNumber
+    // DESCRIPTION   : 
+    //   This function prompts the user for a number greater than 1 by displaying a textbox and button.
+    //   It also updates the UI to reflect the new prompt.
+    // PARAMETERS    : 
+    //   name (string): The name of the user for personalized greeting.
+    // RETURNS       : 
+    //   N/A : nothing
+    //
     function userPromptForNumber(name)
-         {
-            document.getElementById("submitName").style.visibility = "hidden";
-            // change the background colour just to show that you are in a new page
-            document.getElementById("body").style.backgroundColor = "blue";
-            // hide the old prompts 
-            
-            document.getElementById("name").style.visibility = "hidden";
+    {
+        // Hide the name submission button
+        document.getElementById("submitName").style.visibility = "hidden";
+        // Change the background color to blue to indicate a new step
+        document.getElementById("body").style.backgroundColor = "blue";
+        // Hide the name input field
+        document.getElementById("name").style.visibility = "hidden";
 
-            // ask the user by name to enter a number over 1 
-            document.getElementById("promptHeader").innerHTML = "Hi " + name + ", please enter a max number over 1";
+        // Update prompt to request a number from the user
+        document.getElementById("promptHeader").innerHTML = "Hi " + name + ", please enter a max number over 1";
 
-            // Clear previous inputs
-            clearInputs();
-            document.getElementById("submit").style.visibility = "visible";
-            document.getElementById("numberInput").style.visibility = "visible";
-            document.getElementById("submit").value = "Generate random number";
-            // Create a texbox
-            
-        }
+        // Clear previous inputs and show number input options
+        clearInputs();
+        document.getElementById("submit").style.visibility = "visible";
+        document.getElementById("numberInput").style.visibility = "visible";
+        document.getElementById("submit").value = "Generate random number"; // Update button text
+    }
+
+    //
+    // FUNCTION      : numberChecker
+    // DESCRIPTION   : 
+    //   This function validates the number entered by the user. It checks if the input is a valid integer
+    //   greater than 1 and displays appropriate error messages for invalid inputs.
+    // PARAMETERS    : 
+    //   name (string): The user's name (used for personalized messages, though not shown here).
+    // RETURNS       : 
+    //   boolean: Returns true if the input is valid, otherwise false.
+    //
     function numberChecker(name)
     {
         const numberMsg = document.getElementById("numberMsg");
-        const numberStr = document.getElementById("numberInput").value.trim();
-        const number = Number(numberStr);
-        var isGood = false;
+        const numberStr = document.getElementById("numberInput").value.trim(); // Get and trim input
+        const number = Number(numberStr); // Convert input to a number
+        var isGood = false; // Variable to track input validity
         
+        // Check if the input is empty
         if (numberStr.length === 0 ) 
         {
-           
             numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
-            numberMsg.style.color = "red";
+            numberMsg.style.color = "red"; // Set error message color
         }
-            // check if the user entered something that is not a number if yes give them an error
+        // Check if the input is not a number
         else if (isNaN(number))
         {
-            
             numberMsg.innerHTML = "<p>Error: You entered something that is not a number please enter a number greater than 1</p>";
             numberMsg.style.color = "red";
-        
         }
+        // Check if the input is not an integer
         else if (!Number.isInteger(number))
         {
-          
-           numberMsg.innerHTML = "<p>Error: You entered something that is not a int please enter a number greater than 1</p>";
-           numberMsg.style.color = "red";
+            numberMsg.innerHTML = "<p>Error: You entered something that is not an int please enter a number greater than 1</p>";
+            numberMsg.style.color = "red";
+        }
+        // Check if the input is a valid number greater than 1
+        else if (number <= 1)
+        {
+            numberMsg.innerHTML = "<p>Error: Please enter a number greater than 1</p>";
+            numberMsg.style.color = "red";
         }
         else
-         {
-            clearInputs();
-            isGood = true;
+        {
+            clearInputs(); // Clear any previous inputs
+            isGood = true; // Valid input
         }
 
-        return isGood;
-
+        return isGood; // Return input validity
     }
 
+    //
+    // FUNCTION      : clearInputs
+    // DESCRIPTION   : 
+    //   This function clears all dynamic inputs and error messages from the input container.
+    // PARAMETERS    : 
+    //   None
+    // RETURNS       : 
+    //   N/A : nothing
+    //
     function clearInputs() 
     {
         const container = document.getElementById("inputContainer");
@@ -100,20 +154,19 @@ function userGreeting() {
     }
     </script>
     <h2 id="promptHeader">Blank</h2>
-    <!--form that gets the name-->
+    <!-- Form that collects the user's name -->
     <form action="asp.asp" method="POST" onsubmit="return numberChecker()" id="form">
-        <!--that texbox gets the name-->
+        <!-- Textbox for name input -->
         <input type="text" id="name" name="name">
         <input type="button" value="Submit name" onclick="validateName()" id="submitName">
-        <input type="text" id="numberInput" name="numberInput">
-         <!--button to submit the name-->
-        <input type="submit" id="submit" value="Submit"></button>
+        <!-- Textbox for number input -->
+        <input type="text" id="numberInput" name="numberInput" style="visibility: hidden;"> 
+        <!-- Button to submit the number -->
+        <input type="submit" id="submit" value="Submit" style="visibility: hidden;"></button>
     </form>
 
-    
-    <h2 id="numberMsg"></h2>
-    <!-- Header for name errors-->
-    <h2 id="nameError" style="color: red;"></h2>
-    <div id="inputContainer"></div>
+    <h2 id="numberMsg"></h2> <!-- Header for number-related messages -->
+    <h2 id="nameError" style="color: red;"></h2> <!-- Header for name errors -->
+    <div id="inputContainer"></div> <!-- Container for dynamic inputs -->
 </body>
 </html>
