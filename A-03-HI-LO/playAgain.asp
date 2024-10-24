@@ -45,10 +45,19 @@ End If
             numberMsg.style.color = "red";
         }
         // Check if the user entered something that is not a number
-        else if (isNaN(number)) {
+        else if (isNaN(number)) 
+        {
             numberMsg.innerHTML = "<p>Error: You entered something that is not a number; please enter a number greater than 1.</p>";
             numberMsg.style.color = "red";
-        } else {
+        }
+         else if (!Number.isInteger(number)) 
+        {
+            clearInputs();
+            document.getElementById("numberMsg").innerHTML = "<p>Error: You entered something that is not an integer; please enter a number greater than 1.</p>";
+            document.getElementById("numberMsg").style.color = "red";
+        }  
+        else 
+        {
             numberMsg.innerHTML = ""; // Clear previous error
             isGood = true;
         }

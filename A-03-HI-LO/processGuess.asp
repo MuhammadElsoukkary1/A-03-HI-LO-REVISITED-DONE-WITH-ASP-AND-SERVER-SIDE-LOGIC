@@ -68,15 +68,20 @@ End If
             clearInputs();
             document.getElementById("numberMsg").innerHTML = "<p>Error: Please enter a number; you entered nothing.</p>";
             document.getElementById("numberMsg").style.color = "red";
-        } else if (isNaN(number)) {
+        } else if (isNaN(number)) 
+        {
             clearInputs();
             document.getElementById("numberMsg").innerHTML = "<p>Error: You entered something that is not a number; please enter a number greater than 1.</p>";
             document.getElementById("numberMsg").style.color = "red";
-        } else if (!Number.isInteger(number)) {
+        }
+         else if (!Number.isInteger(number)) 
+        {
             clearInputs();
             document.getElementById("numberMsg").innerHTML = "<p>Error: You entered something that is not an integer; please enter a number greater than 1.</p>";
             document.getElementById("numberMsg").style.color = "red";
-        } else {
+        } 
+        else 
+        {
             document.getElementById("numberMsg").innerHTML = ""; // Clear previous error
             isGood = true;
         }
