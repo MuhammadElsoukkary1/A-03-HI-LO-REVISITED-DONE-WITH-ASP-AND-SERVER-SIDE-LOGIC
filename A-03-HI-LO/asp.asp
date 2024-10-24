@@ -8,9 +8,10 @@ Sub backend()
     Dim name, maxNumber, randomNumber, guessNumber, min
 
     ' Check if session variables exist
-    If Not IsEmpty(Session("name")) Then
+    If (Not IsEmpty(Session("name"))) Then
         name = Session("name")
         Response.Write("Hi " & name & ", ready to guess the random number!<br>")
+        Session("name") = name
     End If
 
     ' Handle new game or guessing based on POST request
@@ -37,7 +38,8 @@ Sub backend()
                 Session("randomNumber") = Null
                 Session("min") = Null
                 Session("max") = Null
-                Response.Redirect "playAgainPage.html"
+                Session("name") = name
+                Response.Redirect "playAgainageP.html"
             End If
 
             ' Update session variables with new min/max range

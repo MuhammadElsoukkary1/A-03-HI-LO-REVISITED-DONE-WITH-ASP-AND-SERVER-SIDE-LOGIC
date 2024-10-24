@@ -11,6 +11,7 @@ If Not IsEmpty(Session("name")) Then
     Response.Write("Hi " & name & ", ready to guess the random number!<br>")
 Else
     Response.Write("No name provided. Please enter your name.")
+    Response.Redirect "hiloStart.html" 
 End If
 %>
 
