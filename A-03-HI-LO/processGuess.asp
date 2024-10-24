@@ -41,7 +41,6 @@
          {
             numberMsg.innerHTML = "";
             isGood = true;
-            userWin()
         }
 
         return isGood;
@@ -51,10 +50,6 @@
     {
         const container = document.getElementById("inputContainer");
         container.innerHTML = "";  
-    }
-    function userWin()
-    {
-        document.getElementById("playAgain").style.visibility = "visible";
     }
 </script>
 <%
@@ -68,17 +63,17 @@ Sub processGuess()
     maxNumber = CInt(Request.Cookies("max"))
     name = Request.Cookies("name")
 
-    If maxNumber <= 1 Then
+    If (maxNumber <= 1) Then
         Response.Write("Invalid input!")
     Else
         Response.Write("Hi " & name & ", ready to guess the random number!<br>")
 
         ' Handle guesses
-        If Request.Form("guessNumber") <> "" Then
+        If (Request.Form("guessNumber") <> "") Then
             guessNumber = CInt(Request.Form("guessNumber"))
 
             ' Validate the guess
-            If guessNumber < min Or guessNumber > maxNumber Then
+            If (guessNumber < min Or guessNumber > maxNumber) Then
                 Response.Write("<h2>Error: Your guess is out of range!</h2>")
             ElseIf guessNumber < randomNumber Then
                 Response.Write("<h2>Your guess of " & guessNumber & " is too low!</h2>")

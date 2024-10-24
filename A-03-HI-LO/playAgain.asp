@@ -7,9 +7,15 @@
 </head>
 <body onload="userPromptForNumber()" id="body">
      <p>
-        Hi 
-        <%= Request.Cookies("username") <> "" ? Request.Cookies("username") : "Guest" %>, 
-        please enter a max number over 1.
+       <%
+      If Request.Cookies("name") <> "" Then
+     name = Request.Cookies("name")
+     Response.Write("Hi " & name & ", ready to guess the random number!<br>")
+    Else
+    Response.Write("No name man ")
+End If
+%>
+
     </p>
     <script>
     function userPromptForNumber()
