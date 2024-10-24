@@ -1,9 +1,28 @@
 <%
+' ==========================================
+' File Name: processGuess.asp
+' Description: 
+'   This ASP file handles the backend logic for a number guessing game. 
+'   It manages user sessions, validates inputs, generates random numbers, 
+'   and provides feedback on guesses.
+' Author: MuHammad Elsoukkary
+' Author: MuHammad Elsoukkary
+' Date: [Current Date]
+' ==========================================
+
 ' Ensure that session state is enabled at the top of your ASP page
 Session.LCID = 1033 ' Optional: set the locale
 Session.Timeout = 20 ' Optional: session timeout in minutes
 
-' Function to handle the backend logic
+' FUNCTION      : backend
+' DESCRIPTION   : 
+'   This function manages the backend logic for the number guessing game.
+'   It checks for session variables to greet the user, processes guesses,
+'   and handles the start of a new game based on the user's input.
+' PARAMETERS    : 
+'   None
+' RETURNS       : 
+'   N/A : nothing
 Sub backend()
     Dim name, maxNumber, randomNumber, guessNumber, min
 
@@ -90,10 +109,25 @@ backend()
 </head>
 <body onload="pageLoad()">
 <script language="javascript">
+    // FUNCTION      : pageLoad
+    // DESCRIPTION   : 
+    //   This function hides the "Play Again" button when the page loads.
+    // PARAMETERS    : 
+    //   None
+    // RETURNS       : 
+    //   N/A : nothing
     function pageLoad() {
         document.getElementById("playAgain").style.visibility = "hidden";
     }
 
+    // FUNCTION      : numberChecker
+    // DESCRIPTION   : 
+    //   This function validates the user's input for the guessing number. 
+    //   It checks if the input is empty, not a number, or not an integer.
+    // PARAMETERS    : 
+    //   None
+    // RETURNS       : 
+    //   boolean : true if the input is valid; false otherwise
     function numberChecker() {
         const numberStr = document.getElementById("guessNumber").value.trim();
         const numberMsg = document.getElementById("numberMsg");
@@ -121,6 +155,13 @@ backend()
         return false; // Prevent the form submission
     }
 
+    // FUNCTION      : clearInputs
+    // DESCRIPTION   : 
+    //   This function clears the input container for new inputs.
+    // PARAMETERS    : 
+    //   None
+    // RETURNS       : 
+    //   N/A : nothing
     function clearInputs() {
         const container = document.getElementById("inputContainer");
         container.innerHTML = "";  // Clear the container for new inputs
