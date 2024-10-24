@@ -8,10 +8,11 @@
 <body onload="pageLoad()">
 
 <script language="javascript">
-     function pageLoad() 
-        {
-            document.getElementById("playAgain").style.visibility = "hidden";
-        }
+
+    function pageLoad() 
+    {
+         'document.getElementById("playAgain").style.visibility = "hidden";
+    }
     function numberChecker()
     {
         document.getElementById("playAgain").style.visibility = "hidden";
@@ -26,7 +27,7 @@
             numberMsg.style.color = "red";
             
         }
-            // check if the user entered something that is not a number if yes give them an error
+            ' check if the user entered something that is not a number if yes give them an error
         else if (isNaN(number))
         {
             clearInputs();
@@ -53,7 +54,7 @@
     function clearInputs() 
     {
         const container = document.getElementById("inputContainer");
-        container.innerHTML = "";  // Clear the container for new inputs
+        container.innerHTML = "";  ' Clear the container for new inputs
     }
     function userWin()
     {
@@ -116,7 +117,7 @@ processGuess()
     <p>Enter the number that you want to guess:</p>
     <input type="text" name="guessNumber" value="" size="20" id="guessNumber" autofocus />
     <input type="submit" value="Submit" onclick="numberChecker()" />
-<form action="hiloStart.html" method="POST" name="playAgain">
+<form action="playAgainPage.html" method="POST" name="playAgain">
     <input type="submit" value="Play Again" id="playAgain" />
 </form>
 
