@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>After Guess</title>
 </head>
-<body>
+<body onload="pageLoad()">
+
 <script language="javascript">
+     function pageLoad() {
+            document.getElementById("playAgain").style.visibility = "hidden";
+        }
     function numberChecker()
     {
+        document.getElementById("playAgain").style.visibility = "hidden";
         const numberStr = document.getElementById("guessNumber").value.trim(); 
         var isGood = false;
         const number = Number(numberStr);
@@ -38,20 +43,11 @@
          {
             numberMsg.innerHTML = ""; // Clear previous error
             isGood = true;
-            sucesss();
         }
 
         return isGood;
 
     }
-    function sucesss()
-    {
-        const numberMsg = document.getElementById("numberMsg");
-        numberMsg.innerHTML = "<p> You entered something that works fun </p>";
-        numberMsg.style.color = "red";
-
-    }
-
     function clearInputs() 
     {
         const container = document.getElementById("inputContainer");
@@ -115,7 +111,7 @@ processGuess()
     <input type="text" name="guessNumber" value="" size="20" id="guessNumber" autofocus />
     <input type="submit" value="Submit" onclick="numberChecker()" />
 <form action="hiloStart.html" method="POST" name="playAgain">
-    <input type="submit" value="Play Again" />
+    <input type="submit" value="Play Again" id="playAgain" />
 </form>
 
     <h2 id="numberMsg"></h2>

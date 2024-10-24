@@ -14,19 +14,16 @@
     <script>
     function userPromptForNumber()
          {
-            // change the background colour just to show that you are in a new page
+            ' change the background colour just to show that you are in a new page
             document.getElementById("body").style.backgroundColor = "blue";
-            // hide the old prompts 
-            
-           
-
-            // ask the user by name to enter a number over 1 
-            // Clear previous inputs
+            ' hide the old prompts 
+            ' ask the user by name to enter a number over 1 
+            ' Clear previous inputs
             clearInputs();
             document.getElementById("submit").style.visibility = "visible";
             document.getElementById("numberInput").style.visibility = "visible";
             document.getElementById("submit").value = "Generate random number";
-            // Create a texbox
+            ' Create a texbox
             
         }
     function numberChecker()

@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body onload="pageLoad()">
 <script language="javascript">
+    function pageLoad() {
+            document.getElementById("playAgain").style.visibility = "hidden";
+        }
     function numberChecker()
     {
         const numberStr = document.getElementById("guessNumber").value.trim(); 
@@ -48,6 +51,7 @@
         const numberMsg = document.getElementById("numberMsg");
         numberMsg.innerHTML = "<p> You entered something that works fun </p>";
         numberMsg.style.color = "red";
+        document.getElementById("playAgain").style.visibility = "visible";
 
     }
 
@@ -124,7 +128,7 @@ backend()
     <input type="text" name="guessNumber" value="" size="20" id="guessNumber" autofocus />
     <input type="submit" value="Submit" onclick="numberChecker()" />
 <form action="hiloStart.html" method="POST" name="playAgain">
-    <input type="submit" value="Play Again" />
+    <input type="submit" value="Play Again" id="playAgain"/>
 </form>
 
     <h2 id="numberMsg"></h2>
