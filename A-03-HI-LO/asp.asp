@@ -51,11 +51,11 @@
 </script>
 <%
 Sub backend()
- If (Request.Cookies("name") <> "") Then
+dim name
+     If (Request.Cookies("name") <> "") Then
      name = Request.Cookies("name")
-     Response.Write("Hi " & name & ", ready to guess the random number!<br>")
     Else 
-    Response.Write("Hi " & name & ", ready to guess the random number!<br>")
+
 End If
     If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
         name = Request.Form("name")
