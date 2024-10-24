@@ -8,7 +8,8 @@
 <body onload="pageLoad()">
 
 <script language="javascript">
-     function pageLoad() {
+     function pageLoad() 
+        {
             document.getElementById("playAgain").style.visibility = "hidden";
         }
     function numberChecker()
@@ -43,6 +44,7 @@
          {
             numberMsg.innerHTML = ""; // Clear previous error
             isGood = true;
+            userWin()
         }
 
         return isGood;
@@ -52,6 +54,10 @@
     {
         const container = document.getElementById("inputContainer");
         container.innerHTML = "";  // Clear the container for new inputs
+    }
+    function userWin()
+    {
+        document.getElementById("playAgain").style.visibility = "visible";
     }
 </script>
 <%
