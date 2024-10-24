@@ -1,8 +1,29 @@
 <%
+'==============================================================================
+' FILE: processGuess.asp
+' DESCRIPTION: 
+'   This ASP page handles the logic for a number guessing game. 
+'   It retrieves session variables and validates user guesses. 
+'   If the user wins, it redirects them to the play-again page.
+' AUTHOR: Muhammad Elsoukkary
+' AUTHOR: Muhammad Elsoukkary
+' DATE: [Current Date]
+'==============================================================================
 ' Ensure that session state is enabled
 Session.LCID = 1033 ' Optional: set the locale
 Session.Timeout = 20 ' Optional: session timeout in minutes
 
+
+' FUNCTION      : processGuess
+' DESCRIPTION   : 
+'   This function manages the backend logic for the number guessing game.
+'   It checks for session variables to greet the user, processes guesses,
+'   and handles the start of a new game based on the user's input.
+' PARAMETERS    : 
+'   None
+' RETURNS       : 
+'   N/A : nothing
+Sub processGuess()
 ' Declare all variables properly
 Dim randomNumber, maxNumber, min, name, guessNumber
 
@@ -47,6 +68,9 @@ Else
         Response.Write("<p>Your current guessing range is: " & min & " to " & maxNumber & "</p>")
     End If
 End If
+End Sub
+
+processGuess()
 %>
 
 <!DOCTYPE html>
@@ -59,29 +83,35 @@ End If
 <body>
 
 <script language="javascript">
+    //
+    // FUNCTION      : numberChecker
+    // DESCRIPTION   :
+    //   Validates the user’s input from the guess number form. It ensures that 
+    //   the input is a non-empty, integer number greater than 1.
+    // PARAMETERS    : None
+    // RETURNS       : Boolean - true if valid, false otherwise
+    //
     function numberChecker() {
         const numberStr = document.getElementById("guessNumber").value.trim();
-        var isGood = false;
+        let isGood = false;
         const number = Number(numberStr);
-        
+
         if (numberStr.length === 0) {
             clearInputs();
-            document.getElementById("numberMsg").innerHTML = "<p>Error: Please enter a number; you entered nothing.</p>";
+            document.getElementById("numberMsg").innerHTML = 
+                "<p>Error: Please enter a number; you entered nothing.</p>";
             document.getElementById("numberMsg").style.color = "red";
-        } else if (isNaN(number)) 
-        {
+        } else if (isNaN(number)) {
             clearInputs();
-            document.getElementById("numberMsg").innerHTML = "<p>Error: You entered something that is not a number; please enter a number greater than 1.</p>";
+            document.getElementById("numberMsg").innerHTML = 
+                "<p>Error: You entered something that is not a number; please enter a number greater than 1.</p>";
             document.getElementById("numberMsg").style.color = "red";
-        }
-         else if (!Number.isInteger(number)) 
-        {
+        } else if (!Number.isInteger(number)) {
             clearInputs();
-            document.getElementById("numberMsg").innerHTML = "<p>Error: You entered something that is not an integer; please enter a number greater than 1.</p>";
+            document.getElementById("numberMsg").innerHTML = 
+                "<p>Error: You entered something that is not an integer; please enter a number greater than 1.</p>";
             document.getElementById("numberMsg").style.color = "red";
-        } 
-        else 
-        {
+        } else {
             document.getElementById("numberMsg").innerHTML = ""; // Clear previous error
             isGood = true;
         }
@@ -89,11 +119,19 @@ End If
         return isGood;
     }
 
+    //
+    // FUNCTION      : clearInputs
+    // DESCRIPTION   :
+    //   Clears the content of the input container.
+    // PARAMETERS    : None
+    // RETURNS       : None
+    //
     function clearInputs() {
         const container = document.getElementById("inputContainer");
         container.innerHTML = "";  
     }
 </script>
+
 
 <form action="processGuess.asp" method="POST" name="guessForm" onsubmit="return numberChecker()">
     <p>Enter the number that you want to guess:</p>
@@ -103,5 +141,6 @@ End If
     <h2 id="nameError" style="color: red;"></h2>
     <div id="inputContainer"></div>
 </form>
+
 </body>
 </html>
