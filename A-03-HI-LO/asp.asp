@@ -52,16 +52,15 @@
 <%
 Sub backend()
 dim name
-     If (Request.Cookies("name") <> "") Then
-     name = Request.Cookies("name")
-    Else 
-
-End If
     If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
+        
         name = Request.Form("name")
         Dim maxNumber, randomNumber, guessNumber
         maxNumber = CInt(Request.Form("numberInput")) ' Ensure valid conversion
-
+    Else Request.Cookies("name") <> ""
+     name = Request.Cookies("name")
+    maxNumber = CInt(Request.Form("numberInput")) ' Ensure valid conversion
+    End If
         If (maxNumber <= 1) Then
             Response.Write("Invalid input!")
         Else
@@ -110,7 +109,6 @@ End If
             Response.Cookies("max") = max
             Response.Write("<p>Your current guessing range is: " & min & " to " & max & "</p>")
         End If
-    End If
     Exit Sub ' Ensure Sub ends properly
 End Sub
 

@@ -56,7 +56,7 @@
     }
     </script>
      <%
-      If Request.Cookies("name") <> "" Then
+      If (Request.Cookies("name") <> "") Then
      name = Request.Cookies("name")
      Response.Write("Hi " & name & ", ready to guess the random number!<br>")
     Else
