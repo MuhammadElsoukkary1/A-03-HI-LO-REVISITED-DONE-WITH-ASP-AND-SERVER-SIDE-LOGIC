@@ -35,35 +35,34 @@ End If
         document.getElementById("submit").value = "Generate random number";
     }
 
-    function numberChecker() {
+    function numberChecker() 
+    {
+        const numberStr = document.getElementById("numberInput").value.trim();
         const numberMsg = document.getElementById("numberMsg");
-        const number = document.getElementById("numberInput").value.trim();
-        var isGood = false;
-        
-        if (number.length === 0) {
-            numberMsg.innerHTML = "<p>Error: Please enter a number; you entered nothing.</p>";
-            numberMsg.style.color = "red";
-        }
-        // Check if the user entered something that is not a number
-        else if (isNaN(number)) 
-        {
-            numberMsg.innerHTML = "<p>Error: You entered something that is not a number; please enter a number greater than 1.</p>";
-            numberMsg.style.color = "red";
-        }
-         else if (!Number.isInteger(number)) 
-        {
+        let isGood = false;
+        const number = Number(numberStr);
+
+        if (numberStr.length === 0) {
             clearInputs();
-            document.getElementById("numberMsg").innerHTML = "<p>Error: You entered something that is not an integer; please enter a number greater than 1.</p>";
-            document.getElementById("numberMsg").style.color = "red";
-        }  
-        else 
-        {
+            numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
+            numberMsg.style.color = "red";
+        } else if (isNaN(numberStr)) {
+            clearInputs();
+            numberMsg.innerHTML = "<p>Error: You entered something that is not a number, please enter a number greater than 1</p>";
+            numberMsg.style.color = "red";
+        } else if (!Number.isInteger(number)) {
+            clearInputs();
+            numberMsg.innerHTML = "<p>Error: You entered something that is not an integer, please enter a whole number</p>";
+            numberMsg.style.color = "red";
+        } else {
             numberMsg.innerHTML = ""; // Clear previous error
             isGood = true;
+            return true; // Allow the form to be submitted
         }
 
-        return isGood;
+        return false; // Prevent the form submission
     }
+    
 
     function clearInputs() {
         const container = document.getElementById("inputContainer");
