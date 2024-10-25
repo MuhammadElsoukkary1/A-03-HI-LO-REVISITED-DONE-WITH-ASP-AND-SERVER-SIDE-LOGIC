@@ -154,19 +154,23 @@ backend()
             let isGood = false;
             const number = Number(numberStr);
 
-            if (numberStr.length === 0) {
+            if (numberStr.length === 0) 
+            {
                 clearInputs();
                 numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
                 numberMsg.style.color = "red";
-            } else if (isNaN(number)) {
+            } else if (isNaN(number)) 
+            {
                 clearInputs();
                 numberMsg.innerHTML = "<p>Error: You entered something that is not a number, please enter a number greater than 1</p>";
                 numberMsg.style.color = "red";
-            } else if (!Number.isInteger(number)) {
+            } else if (!Number.isInteger(number)) 
+            {
                 clearInputs();
                 numberMsg.innerHTML = "<p>Error: You entered something that is not an integer, please enter a whole number</p>";
                 numberMsg.style.color = "red";
-            } else {
+            } else 
+            {
                 numberMsg.innerHTML = ""; // Clear previous error
                 isGood = true;
                 return true; // Allow the form to be submitted

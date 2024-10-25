@@ -45,7 +45,7 @@ End If
 </head>
 <body onload="userPromptForNumber()" id="body">
     <div class="container"> <!-- Box/container for the content -->
-        <script>
+        <script language="javascript">
              //
         // FUNCTION      : userPromptForNumber
         // DESCRIPTION   : 
