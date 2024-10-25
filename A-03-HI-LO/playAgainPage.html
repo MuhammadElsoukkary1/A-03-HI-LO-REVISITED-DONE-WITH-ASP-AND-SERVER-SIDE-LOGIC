@@ -3,9 +3,11 @@
     DESCRIPTION: 
     This page congratulates the user for guessing the correct number 
     and offers an option to restart the game by navigating to "playAgain.asp". 
-    AUTHOR: Muhammad Elsoukkary
-    AUTHOR: Muhammad Elsoukkary
-    DATE: [Current Date]
+    AUTHOR    : Muhammad Elsoukkary
+    STUDENT # : 8826383
+    AUTHOR    : Quang Minh Vu
+    STUDENT # : 8905836
+    DATE      : 2024-10-18
 -->
 
 <!DOCTYPE html>
@@ -15,10 +17,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Victory Screen</title>
 </head>
-<body>
+<body onload="pageLoad()" id="body">
     <h2>You win! You guessed the number. Play again?</h2>
     <form action="playAgain.asp">
         <input type="submit" value="Play Again">
     </form>
+    <script>
+         //
+        // FUNCTION      :  pageLoad
+        // DESCRIPTION   : 
+        //   This function simply changes the page to be green.
+        // PARAMETERS    : 
+        //   None
+        // RETURNS       : 
+        //   N/A : nothing
+        //
+        function pageLoad()
+        {
+            document.getElementById("body").style.backgroundColor = "green"
+        }
+    </script>
 </body>
 </html>

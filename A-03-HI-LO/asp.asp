@@ -1,13 +1,15 @@
 <%
 ' ==========================================
-' File Name: processGuess.asp
-' Description: 
+'   File Name: processGuess.asp
+'   Description: 
 '   This ASP file handles the backend logic for a number guessing game. 
 '   It manages user sessions, validates inputs, generates random numbers, 
 '   and provides feedback on guesses.
-' Author: MuHammad Elsoukkary
-' Author: MuHammad Elsoukkary
-' Date: [Current Date]
+'   AUTHOR    : Muhammad Elsoukkary
+'   STUDENT # : 8826383
+'   AUTHOR    : Quang Minh Vu
+'   STUDENT # : 8905836
+'   DATE      : 2024-10-18
 ' ==========================================
 
 ' Ensure that session state is enabled at the top of your ASP page
@@ -29,7 +31,7 @@ Sub backend()
     ' Check if session variables exist
     If (Not IsEmpty(Session("name"))) Then
         name = Session("name")
-        Response.Write("Hi " & name & ", ready to guess the random number!<br>")
+      Response.Write("Hi " & name & ", ready to guess the random number!<br>")
     End If
 
     ' Handle new game or guessing based on POST request
@@ -99,87 +101,90 @@ End Sub
 ' Call the backend function
 backend()
 %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Style\asp.css"> <!-- Link CSS correctly -->
     <title>Number Guessing Game</title>
 </head>
 <body onload="pageLoad()">
-<script language="javascript">
-    // FUNCTION      : pageLoad
-    // DESCRIPTION   : 
-    //   This function hides the "Play Again" button when the page loads.
-    // PARAMETERS    : 
-    //   None
-    // RETURNS       : 
-    //   N/A : nothing
-    function pageLoad() {
-        document.getElementById("playAgain").style.visibility = "hidden";
-    }
-
-    // FUNCTION      : numberChecker
-    // DESCRIPTION   : 
-    //   This function validates the user's input for the guessing number. 
-    //   It checks if the input is empty, not a number, or not an integer.
-    // PARAMETERS    : 
-    //   None
-    // RETURNS       : 
-    //   boolean : true if the input is valid; false otherwise
-    function numberChecker() {
-        const numberStr = document.getElementById("guessNumber").value.trim();
-        const numberMsg = document.getElementById("numberMsg");
-        let isGood = false;
-        const number = Number(numberStr);
-
-        if (numberStr.length === 0) {
-            clearInputs();
-            numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
-            numberMsg.style.color = "red";
-        } else if (isNaN(number)) {
-            clearInputs();
-            numberMsg.innerHTML = "<p>Error: You entered something that is not a number, please enter a number greater than 1</p>";
-            numberMsg.style.color = "red";
-        } else if (!Number.isInteger(number)) {
-            clearInputs();
-            numberMsg.innerHTML = "<p>Error: You entered something that is not an integer, please enter a whole number</p>";
-            numberMsg.style.color = "red";
-        } else {
-            numberMsg.innerHTML = ""; // Clear previous error
-            isGood = true;
-            return true; // Allow the form to be submitted
+    <script language="javascript">
+        // FUNCTION      : pageLoad
+        // DESCRIPTION   : 
+        //   This function hides the "Play Again" button when the page loads.
+        // PARAMETERS    : 
+        //   None
+        // RETURNS       : 
+        //   N/A : nothing
+        function pageLoad() {
+            document.getElementById("playAgain").style.visibility = "hidden";
         }
 
-        return false; // Prevent the form submission
-    }
+        // FUNCTION      : numberChecker
+        // DESCRIPTION   : 
+        //   This function validates the user's input for the guessing number. 
+        //   It checks if the input is empty, not a number, or not an integer.
+        // PARAMETERS    : 
+        //   None
+        // RETURNS       : 
+        //   boolean : true if the input is valid; false otherwise
+        function numberChecker() {
+            const numberStr = document.getElementById("guessNumber").value.trim();
+            const numberMsg = document.getElementById("numberMsg");
+            let isGood = false;
+            const number = Number(numberStr);
 
-    // FUNCTION      : clearInputs
-    // DESCRIPTION   : 
-    //   This function clears the input container for new inputs.
-    // PARAMETERS    : 
-    //   None
-    // RETURNS       : 
-    //   N/A : nothing
-    function clearInputs() {
-        const container = document.getElementById("inputContainer");
-        container.innerHTML = "";  // Clear the container for new inputs
-    }
-</script>
+            if (numberStr.length === 0) {
+                clearInputs();
+                numberMsg.innerHTML = "<p>Error: Please enter a number you entered nothing</p>";
+                numberMsg.style.color = "red";
+            } else if (isNaN(number)) {
+                clearInputs();
+                numberMsg.innerHTML = "<p>Error: You entered something that is not a number, please enter a number greater than 1</p>";
+                numberMsg.style.color = "red";
+            } else if (!Number.isInteger(number)) {
+                clearInputs();
+                numberMsg.innerHTML = "<p>Error: You entered something that is not an integer, please enter a whole number</p>";
+                numberMsg.style.color = "red";
+            } else {
+                numberMsg.innerHTML = ""; // Clear previous error
+                isGood = true;
+                return true; // Allow the form to be submitted
+            }
 
-<form action="processGuess.asp" method="POST" name="guessForm" onsubmit="return numberChecker()">
-    <p>Enter the number that you want to guess:</p>
-    <input type="text" name="guessNumber" value="" size="20" id="guessNumber" autofocus />
-    <input type="submit" value="Submit" />
-</form>
+            return false; // Prevent the form submission
+        }
 
-<form action="hiloStart.html" method="POST" name="playAgain">
-    <input type="submit" value="Play Again" id="playAgain" />
-</form>
+        // FUNCTION      : clearInputs
+        // DESCRIPTION   : 
+        //   This function clears the input container for new inputs.
+        // PARAMETERS    : 
+        //   None
+        // RETURNS       : 
+        //   N/A : nothing
+        function clearInputs() {
+            const container = document.getElementById("inputContainer");
+            container.innerHTML = "";  // Clear the container for new inputs
+        }
+    </script>
 
-<h2 id="numberMsg"></h2>
-<h2 id="nameError" style="color: red;"></h2>
-<div id="inputContainer"></div>
+    <div class="container">
+    
+        <form action="processGuess.asp" method="POST" name="guessForm" onsubmit="return numberChecker()">
+            <p>Enter the number that you want to guess:</p>
+            <input type="text" name="guessNumber" value="" size="20" id="guessNumber" autofocus />
+            <input type="submit" value="Submit" />
+        </form>
+
+        <form action="hiloStart.html" method="POST" name="playAgain">
+            <input type="submit" value="Play Again" id="playAgain" />
+        </form>
+
+        <h2 id="numberMsg"></h2>
+        <h2 id="nameError" style="color: red;"></h2>
+        <div id="inputContainer"></div>
+    </div>
 </body>
 </html>

@@ -1,141 +1,162 @@
+<!-- 
+    FILE: playAgain.html
+    DESCRIPTION: 
+    This page asks the user for their name and checks to make sure the max number 
+    they enter is an int and not empty then posts the info given being name and max number to "asp.asp". 
+    AUTHOR    : Muhammad Elsoukkary
+    STUDENT # : 8826383
+    AUTHOR    : Quang Minh Vu
+    STUDENT # : 8905836
+    DATE      : 2024-10-18
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Style/style.css"> <!-- Link CSS correctly -->
-    <title>hiloStart</title>
+    <meta charset="UTF-8"> <!-- Character encoding for the document -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design settings -->
+    <link rel="stylesheet" href="Style/style.css"> <!-- Link to the external CSS stylesheet -->
+    <title>hiloStart</title> <!-- Title of the page -->
 </head>
-<body onload="userGreeting()" id="body">
+<body onload="userGreeting()" id="body"> <!-- Call userGreeting function on page load -->
+    <div id="container"> <!-- Container div for centering content -->
+        <h2 id="promptHeader">Blank</h2> <!-- Header that will display prompts to the user -->
+
+        <!-- Form that collects the user's name -->
+        <form action="asp.asp" method="POST" onsubmit="return numberChecker()" id="form">
+            <input type="text" id="name" name="name" placeholder="Enter your name"> <!-- Input for user's name -->
+            <input type="button" value="Submit name" onclick="validateName()" id="submitName"> <!-- Button to submit name -->
+            <input type="text" id="numberInput" name="numberInput" placeholder="Enter a number" style="visibility: hidden;"> <!-- Hidden input for number -->
+            <input type="submit" id="submit" value="Submit" style="visibility: hidden;"> <!-- Hidden submit button -->
+        </form>
+
+        <h2 id="numberMsg"></h2> <!-- Element to display number-related messages -->
+        <h2 id="nameError" style="color: red;"></h2> <!-- Element to display name error messages -->
+        <div id="inputContainer"></div> <!-- Container for dynamic input elements -->
+    </div>
+
     <script>
-    //
-    // FUNCTION      : userGreeting
+     //
+     // FUNCTION      : userGreeting
     // DESCRIPTION   : 
-    //   This function greets the user by prompting them to enter their name.
-    //   It also hides the number input and submission elements until the name is validated.
+    //   This function asks the user for their name  
+    //   Then calls the function validateName to proceed to the next step
     // PARAMETERS    : 
-    //   None
+     //   None
     // RETURNS       : 
     //   N/A : nothing
     //
-    function userGreeting() {
+    function userGreeting() 
+    {
         document.getElementById("promptHeader").innerHTML = "Hi, please enter your name";
-        document.getElementById("body").style.backgroundColor = "grey"; // Initial background color
-        document.getElementById("submit").style.visibility = "hidden";
-        document.getElementById("numberInput").style.visibility = "hidden";
+        document.getElementById("body").style.backgroundColor = "grey"; // Set initial background color
+        document.getElementById("submit").style.visibility = "hidden"; // Hide submit button
+        document.getElementById("numberInput").style.visibility = "hidden"; // Hide number input
     }
 
-    //
-    // FUNCTION      : validateName
-    // DESCRIPTION   : 
-    //   This function retrieves the name entered by the user, trims any leading or trailing whitespace,
-    //   and checks if the name is empty. If it is empty, an error message is displayed.
-    //   Otherwise, it proceeds to prompt the user for a number.
-    // PARAMETERS    : 
-    //   event: event onclick (not used in this implementation)
-    // RETURNS       : 
-    //   N/A : nothing
-    //
+
+        //
+        // FUNCTION      : validateName
+        // DESCRIPTION   : 
+        //   This function gets the name from the id of 'name' and trims any whitespace 
+        //   then checks if the name is not empty. If it is empty, it displays an error;
+        //   otherwise, it calls userPromptForNumber.
+        // PARAMETERS    : 
+        //   event: event onclick
+        // RETURNS       : 
+        //   N/A : nothing
+        //
     function validateName() {
-        const name = document.getElementById("name").value.trim();
-        const nameErrorElement = document.getElementById("nameError");
+        const name = document.getElementById("name").value.trim(); // Get user name input
+        const nameErrorElement = document.getElementById("nameError"); // Error message element
 
         if (name.length === 0) {
-            clearInputs();
-            nameErrorElement.innerHTML = "<p>Error: Name is empty</p>";
+            clearInputs(); // Clear inputs if name is empty
+            nameErrorElement.innerHTML = "<p>Error: Name is empty</p>"; // Show error message
         } else {
-            nameErrorElement.innerHTML = "";
-            userPromptForNumber(name);
+            nameErrorElement.innerHTML = ""; // Clear error message
+            userPromptForNumber(name); // Prompt for a number
         }
     }
 
-    //
-    // FUNCTION      : userPromptForNumber
-    // DESCRIPTION   : 
-    //   This function prompts the user for a number greater than 1 by displaying a textbox and button.
-    //   It also updates the UI to reflect the new prompt.
-    // PARAMETERS    : 
-    //   name (string): The name of the user for personalized greeting.
-    // RETURNS       : 
-    //   N/A : nothing
-    //
+     c  //
+        // FUNCTION      : userPromptForNumber
+        // DESCRIPTION   : 
+        //   This function asks the user for a number and adds a textbox and button, 
+        //   then calls a checker function to validate the number once the button is clicked.
+        // PARAMETERS    : 
+        //   name string : name of the user
+        // RETURNS       : 
+        //   N/A : nothing
+        //
     function userPromptForNumber(name) {
-        document.getElementById("submitName").style.visibility = "hidden";
-        document.getElementById("body").style.backgroundColor = "blue"; // Indicate new step
-        document.getElementById("name").style.visibility = "hidden";
+        document.getElementById("submitName").style.visibility = "hidden"; // Hide name submit button
+        document.getElementById("body").style.backgroundColor = "blue"; // Change background color
+        document.getElementById("name").style.visibility = "hidden"; // Hide name input
 
+        // Update header to greet user and ask for a number
         document.getElementById("promptHeader").innerHTML = 
             "Hi " + name + ", please enter a max number over 1";
 
-        clearInputs();
-        document.getElementById("submit").style.visibility = "visible";
-        document.getElementById("numberInput").style.visibility = "visible";
-        document.getElementById("submit").value = "Generate random number";
+        clearInputs(); // Clear any previous inputs
+        document.getElementById("submit").style.visibility = "visible"; // Show number submit button
+        document.getElementById("numberInput").style.visibility = "visible"; // Show number input
+        document.getElementById("submit").value = "Generate random number"; // Update submit button text
     }
 
-    //
     // FUNCTION      : numberChecker
-    // DESCRIPTION   : 
-    //   This function validates the number entered by the user. It checks if the input is a valid integer
-    //   greater than 1 and displays appropriate error messages for invalid inputs.
-    // PARAMETERS    : 
-    //   name (string): The user's name (used for personalized messages, though not shown here).
-    // RETURNS       : 
-    //   boolean: Returns true if the input is valid, otherwise false.
-    //
-    function numberChecker(name) {
-        const numberMsg = document.getElementById("numberMsg");
-        const numberStr = document.getElementById("numberInput").value.trim();
-        const number = Number(numberStr);
-        let isGood = false;
+        // DESCRIPTION   : 
+        //   This function validates the user's number input. 
+        //   It checks if the input is not empty, is a valid number, and is an integer.
+        // PARAMETERS    : 
+        //   name string : name of the user
+        // RETURNS       : 
+        //   boolean : true if the input is valid; false otherwise
+        //
+    function numberChecker(name) 
+    {
+        const numberMsg = document.getElementById("numberMsg"); // Element for number messages
+        const numberStr = document.getElementById("numberInput").value.trim(); // Get number input
+        const number = Number(numberStr); // Convert input to number
+        let isGood = false; // Flag to track validation
 
-        if (numberStr.length === 0) {
-            numberMsg.innerHTML = "<p>Error: Please enter a number. You entered nothing.</p>";
-            numberMsg.style.color = "red";
-        } else if (isNaN(number)) {
-            numberMsg.innerHTML = "<p>Error: You entered something that is not a number. Please enter a valid number.</p>";
-            numberMsg.style.color = "red";
-        } else if (!Number.isInteger(number)) {
-            numberMsg.innerHTML = "<p>Error: You entered a non-integer. Please enter a whole number greater than 1.</p>";
-            numberMsg.style.color = "red";
-        } else if (number <= 1) {
-            numberMsg.innerHTML = "<p>Error: Please enter a number greater than 1.</p>";
-            numberMsg.style.color = "red";
-        } else {
-            clearInputs();
-            isGood = true;
+        if (numberStr.length === 0) 
+        {
+            numberMsg.innerHTML = "<p>Error: Please enter a number. You entered nothing.</p>"; // Error for empty input
+            numberMsg.style.color = "red"; // Set error color
+        }
+         else if (isNaN(number)) 
+        {
+            numberMsg.innerHTML = "<p>Error: You entered something that is not a number. Please enter a valid number.</p>"; // Error for non-number input
+            numberMsg.style.color = "red"; // Set error color
+        }
+        else if (!Number.isInteger(number)) 
+        {
+            numberMsg.innerHTML = "<p>Error: You entered a non-integer. Please enter a whole number greater than 1.</p>"; // Error for non-integer input
+            numberMsg.style.color = "red"; // Set error color
+        }
+         else 
+        {
+            clearInputs(); // Clear any previous inputs
+            isGood = true; // Input is valid
         }
 
-        return isGood;
+        return isGood; // Return validation status
     }
 
-    //
-    // FUNCTION      : clearInputs
-    // DESCRIPTION   : 
-    //   This function clears all dynamic inputs and error messages from the input container.
-    // PARAMETERS    : 
-    //   None
-    // RETURNS       : 
-    //   N/A : nothing
-    //
-    function clearInputs() {
-        const container = document.getElementById("inputContainer");
-        container.innerHTML = "";
+     //
+     // FUNCTION      : clearInputs
+     // DESCRIPTION   : 
+     // This function clears all the dynamic inputs inside of the input container.
+     // PARAMETERS    : 
+     //   None
+     // RETURNS       : 
+     //   N/A : nothing
+     //
+    function clearInputs() 
+    {
+        const container = document.getElementById("inputContainer"); // Input container element
+        container.innerHTML = ""; // Clear content
     }
     </script>
-
-    <h2 id="promptHeader">Blank</h2>
-
-    <!-- Form that collects the user's name -->
-    <form action="asp.asp" method="POST" onsubmit="return numberChecker()" id="form">
-        <input type="text" id="name" name="name" placeholder="Enter your name">
-        <input type="button" value="Submit name" onclick="validateName()" id="submitName">
-        <input type="text" id="numberInput" name="numberInput" placeholder="Enter a number" style="visibility: hidden;">
-        <input type="submit" id="submit" value="Submit" style="visibility: hidden;">
-    </form>
-
-    <h2 id="numberMsg"></h2>
-    <h2 id="nameError" style="color: red;"></h2>
-    <div id="inputContainer"></div>
 </body>
 </html>

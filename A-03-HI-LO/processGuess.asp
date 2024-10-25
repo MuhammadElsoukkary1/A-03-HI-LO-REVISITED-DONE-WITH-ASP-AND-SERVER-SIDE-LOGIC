@@ -5,9 +5,11 @@
 '   This ASP page handles the logic for a number guessing game. 
 '   It retrieves session variables and validates user guesses. 
 '   If the user wins, it redirects them to the play-again page.
-' AUTHOR: Muhammad Elsoukkary
-' AUTHOR: Muhammad Elsoukkary
-' DATE: [Current Date]
+'   AUTHOR    : Muhammad Elsoukkary
+'   STUDENT # : 8826383
+'   AUTHOR    : Quang Minh Vu
+'   STUDENT # : 8905836
+'   DATE      : 2024-10-18
 '==============================================================================
 ' Ensure that session state is enabled
 Session.LCID = 1033 ' Optional: set the locale
@@ -78,6 +80,7 @@ processGuess()
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Style\asp.css"> <!-- Link CSS correctly -->
     <title>After Guess</title>
 </head>
 <body>
@@ -132,7 +135,7 @@ processGuess()
     }
 </script>
 
-
+ <div class="container">
 <form action="processGuess.asp" method="POST" name="guessForm" onsubmit="return numberChecker()">
     <p>Enter the number that you want to guess:</p>
     <input type="text" name="guessNumber" value="" size="20" id="guessNumber" autofocus />
@@ -141,6 +144,7 @@ processGuess()
     <h2 id="nameError" style="color: red;"></h2>
     <div id="inputContainer"></div>
 </form>
+ </div>
 
 </body>
 </html>
