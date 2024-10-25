@@ -29,10 +29,16 @@ Sub backend()
     Dim name, maxNumber, randomNumber, guessNumber, min
 
     ' Check if session variables exist
-    If (Not IsEmpty(Session("name"))) Then
-        name = Session("name")
-      Response.Write("Hi " & name & ", ready to guess the random number!<br>")
-    End If
+  If (Not IsEmpty(Session("name"))) Then
+    name = Session("name")
+    Response.Write "<script>"
+    Response.Write "document.addEventListener('DOMContentLoaded', function() {"
+    Response.Write "document.getElementById('numberMsg').innerHTML = 'Hi " & name & ", ready to guess the random number!';"
+    Response.Write "});"
+    Response.Write "</script>"
+End If
+
+
 
     ' Handle new game or guessing based on POST request
     If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
@@ -50,7 +56,7 @@ Sub backend()
             guessNumber = CInt(Request.Form("guessNumber"))
 
             ' Validate and compare guess
-            If guessNumber < min Or guessNumber > max Then
+            If (guessNumber < min Or guessNumber > max) Then
                 Response.Write("<h2>Error: Your guess is out of range!</h2>")
             ElseIf guessNumber < randomNumber Then
                 Response.Write("<h2>Your guess of " & guessNumber & " is too low!</h2>")
@@ -64,7 +70,7 @@ Sub backend()
                 Session("randomNumber") = Null
                 Session("min") = Null
                 Session("max") = Null
-                Response.Redirect "playAgainageP.html"
+                Response.Redirect "playAgainPage.html"
             End If
 
             ' Update session variables with new min/max range
@@ -79,8 +85,21 @@ Sub backend()
 
             maxNumber = CInt(Request.Form("numberInput")) ' Ensure valid conversion
 
-            If (maxNumber <= 1) Then
-                Response.Write("<h2>Invalid input!</h2>")
+           If (maxNumber < 1) Then
+           Response.Write("<h2 style='color: red;'>Error: You entered a number less than 1 !</h2>")
+           Response.Write("<script type='text/javascript'>")
+           Response.Write("setTimeout(function() { window.location.href = 'hiloStart.html'; }, 3000);") ' Delay of 3000 milliseconds (3 seconds)
+           Response.Write("</script>")
+
+           ElseIf (maxNumber <= 1) Then
+           Response.Write("<h2 style='color: red;'>Error: You entered 1  !</h2>")
+           Response.Write("<script type='text/javascript'>")
+           Response.Write("setTimeout(function() { window.location.href = 'hiloStart.html'; }, 3000);") ' Delay of 3000 milliseconds (3 seconds)
+           Response.Write("</script>")
+        
+        
+
+
             Else
                 ' Set up the game with new values
                 min = 1
@@ -120,6 +139,7 @@ backend()
         //   N/A : nothing
         function pageLoad() {
             document.getElementById("playAgain").style.visibility = "hidden";
+            document.getElementById("greeting").style.fontSize = '30px'; // Adjust the size as needed
         }
 
         // FUNCTION      : numberChecker

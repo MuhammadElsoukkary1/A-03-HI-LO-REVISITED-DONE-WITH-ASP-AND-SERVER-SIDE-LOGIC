@@ -35,8 +35,18 @@ min = CInt(Session("min"))
 maxNumber = CInt(Session("max"))
 name = Session("name")
 
-If (maxNumber <= 1) Then
-    Response.Write("Invalid input!")
+    If (maxNumber < 1) Then
+        Response.Write("<h2 style='color: red;'>Error: You entered a number less than 1 !</h2>")
+        Response.Write("<script type='text/javascript'>")
+        Response.Write("setTimeout(function() { window.location.href = 'hiloStart.html'; }, 3000);") ' Delay of 3000 milliseconds (3 seconds)
+        Response.Write("</script>")
+
+        ElseIf (maxNumber <= 1) Then
+        Response.Write("<h2 style='color: red;'>Error: You entered 1  !</h2>")
+        Response.Write("<script type='text/javascript'>")
+        Response.Write("setTimeout(function() { window.location.href = 'hiloStart.html'; }, 3000);") ' Delay of 3000 milliseconds (3 seconds)
+        Response.Write("</script>")
+
 Else
     Response.Write("Hi " & name & ", ready to guess the random number!<br>")
 
@@ -55,7 +65,7 @@ Else
             maxNumber = guessNumber ' Update maximum range
         Else
             Response.Write("<h2>Congratulations! You guessed the number: " & randomNumber & "!</h2>")
-
+            Response.Redirect "playAgainPage.html" 
             ' Clear session variables for a new game
             Session("randomNumber") = Null
             Session("min") = Null
@@ -121,7 +131,8 @@ processGuess()
             document.getElementById("numberMsg").innerHTML = 
                 "<p>Error: You entered something that is not an integer; please enter a number greater than 1.</p>";
             document.getElementById("numberMsg").style.color = "red";
-        } else 
+        } 
+        else 
         {
             document.getElementById("numberMsg").innerHTML = ""; // Clear previous error
             isGood = true;
