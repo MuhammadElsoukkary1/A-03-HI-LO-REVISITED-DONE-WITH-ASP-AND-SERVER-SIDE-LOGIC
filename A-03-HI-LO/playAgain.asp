@@ -46,15 +46,36 @@ End If
 <body onload="userPromptForNumber()" id="body">
     <div class="container"> <!-- Box/container for the content -->
         <script>
-            function userPromptForNumber() {
+             //
+        // FUNCTION      : userPromptForNumber
+        // DESCRIPTION   : 
+        //   This function asks the user for a number and adds a textbox and button, 
+        //   then calls a checker function to validate the number once the button is clicked.
+        // PARAMETERS    : 
+        //   name string : name of the user
+        // RETURNS       : 
+        //   N/A : nothing
+        //
+            function userPromptForNumber() 
+            {
                 document.getElementById("body").style.backgroundColor = "lightgrey";
                 clearInputs();
                 document.getElementById("submit").style.visibility = "visible";
                 document.getElementById("numberInput").style.visibility = "visible";
                 document.getElementById("submit").value = "Generate random number";
             }
-
-            function numberChecker() {
+              //
+        // FUNCTION      : numberChecker
+        // DESCRIPTION   : 
+        //   This function gets the number from the input and checks if it is a valid number greater than 1.
+        //   If the input is valid, it calls makeRandomNumber; otherwise, it displays an error message.
+        // PARAMETERS    : 
+        //   string name: the user's name
+        // RETURNS       : 
+        //   N/A : nothing
+        //
+            function numberChecker() 
+            {
                 const numberStr = document.getElementById("numberInput").value.trim();
                 const numberMsg = document.getElementById("numberMsg");
                 let isGood = false;
@@ -80,8 +101,18 @@ End If
 
                 return false; // Prevent the form submission
             }
-
-            function clearInputs() {
+       
+           //
+          // FUNCTION      : clearInputs
+          // DESCRIPTION   : 
+         //   This function clears all the dynamic inputs inside of the input container.
+         // PARAMETERS    : 
+        //   None
+        // RETURNS       : 
+        //   N/A : nothing
+        //
+            function clearInputs() 
+            {
                 const container = document.getElementById("inputContainer");
                 container.innerHTML = ""; // Clear the container for new inputs
             }
