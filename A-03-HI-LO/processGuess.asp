@@ -48,14 +48,19 @@ Sub processGuess()
             ElseIf guessNumber > randomNumber Then
                 Response.Write("<h2>Your guess of " & guessNumber & " is too high!</h2>")
                 maxNumber = guessNumber - 1 ' Update maximum range
-            Else
-                Response.Write("<h2>Congratulations! You guessed the number: " & randomNumber & "!</h2>")
-                ' Clear session variables for a new game
-                Session("randomNumber") = Null
-                Session("min") = Null
-                Session("max") = Null
-                Response.Redirect "playAgainPage.html"
-            End If
+           Else
+    Response.Write("<h2 style='color: green;'> You win you guessed " & randomNumber &"!!!</h2>")
+    Response.Write "<script>"
+    Response.Write "document.addEventListener('DOMContentLoaded', function() {"
+    Response.Write "setTimeout(function() { window.location.href = 'playAgainPage.html'; }, 3000);"  ' Redirect after 3 seconds
+    Response.Write "});"
+    Response.Write "</script>"
+    
+    ' Clear session variables for a new game
+    Session("randomNumber") = Null
+    Session("min") = Null
+    Session("max") = Null
+End If
 
             ' Update session with new range only if the game is not over
             If guessNumber <> randomNumber Then

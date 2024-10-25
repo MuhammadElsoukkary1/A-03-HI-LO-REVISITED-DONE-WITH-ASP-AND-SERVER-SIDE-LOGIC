@@ -89,7 +89,12 @@ End If
                 Response.Write("<h2>Your guess of " & guessNumber & " is too high!</h2>")
                 max = guessNumber - 1 ' Update the maximum range
             Else
-                Response.Write("<h2>Congratulations! You guessed the number: " & randomNumber & "!</h2>")
+            Response.Write("<h2 style='color: green;'> You win you guessed " & randomNumber &"!!!</h2>")
+            Response.Write "<script>"
+            Response.Write "document.addEventListener('DOMContentLoaded', function() {"
+            Response.Write "setTimeout(function() { window.location.href = 'playAgainPage.html'; }, 3000);"  ' Redirect after 3 seconds
+            Response.Write "});"
+            Response.Write "</script>"
                 ' Clear session variables for a new game
                 Session("randomNumber") = Null
                 Session("min") = Null
