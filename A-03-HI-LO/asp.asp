@@ -37,9 +37,6 @@ Sub backend()
     Response.Write "});"
     Response.Write "</script>"
 End If
-
-
-
     ' Handle new game or guessing based on POST request
     If (Request.ServerVariables("REQUEST_METHOD") = "POST") Then
         ' Validate and prevent overwriting the session with blank data
@@ -47,6 +44,33 @@ End If
             name = Request.Form("name")
             Session("name") = name
         End If
+           maxNumber = CInt(Request.Form("numberInput")) ' Ensure valid conversion
+
+           If (maxNumber < 1) Then
+           Response.Write("<h2 style='color: red;'>Error: You entered a number less than 1 !</h2>")
+           Response.Write("<script type='text/javascript'>")
+           Response.Write("setTimeout(function() { window.location.href = 'hiloStart.html'; }, 3000);") ' Delay of 3000 milliseconds (3 seconds)
+           Response.Write("</script>")
+
+           ElseIf (maxNumber = 1) Then
+           Response.Write("<h2 style='color: red;'>Error: You entered 1  !</h2>")
+           Response.Write("<script type='text/javascript'>")
+           Response.Write("setTimeout(function() { window.location.href = 'hiloStart.html'; }, 3000);") ' Delay of 3000 milliseconds (3 seconds)
+           Response.Write("</script>")
+
+           Else
+                ' Set up the game with new values
+                min = 1
+                Randomize
+                randomNumber = Int((maxNumber - min + 1) * Rnd + min)
+
+                ' Store values in session
+                Session("randomNumber") = randomNumber
+                Session("min") = min
+                Session("max") = maxNumber
+
+                Response.Write("Hi " & name & ", ready to guess the random number!<br>")
+            End If
 
         If Request.Form("guessNumber") <> "" Then
             ' Handle the guess
@@ -60,10 +84,10 @@ End If
                 Response.Write("<h2>Error: Your guess is out of range!</h2>")
             ElseIf guessNumber < randomNumber Then
                 Response.Write("<h2>Your guess of " & guessNumber & " is too low!</h2>")
-                min = guessNumber ' Update the minimum range
+                min = guessNumber + 1 ' Update the minimum range
             ElseIf guessNumber > randomNumber Then
                 Response.Write("<h2>Your guess of " & guessNumber & " is too high!</h2>")
-                max = guessNumber ' Update the maximum range
+                max = guessNumber - 1 ' Update the maximum range
             Else
                 Response.Write("<h2>Congratulations! You guessed the number: " & randomNumber & "!</h2>")
                 ' Clear session variables for a new game
@@ -81,37 +105,6 @@ End If
             ' Process starting a new game
             If Trim(name) = "" Then
                 name = Request.Form("name")
-            End If
-
-            maxNumber = CInt(Request.Form("numberInput")) ' Ensure valid conversion
-
-           If (maxNumber < 1) Then
-           Response.Write("<h2 style='color: red;'>Error: You entered a number less than 1 !</h2>")
-           Response.Write("<script type='text/javascript'>")
-           Response.Write("setTimeout(function() { window.location.href = 'hiloStart.html'; }, 3000);") ' Delay of 3000 milliseconds (3 seconds)
-           Response.Write("</script>")
-
-           ElseIf (maxNumber <= 1) Then
-           Response.Write("<h2 style='color: red;'>Error: You entered 1  !</h2>")
-           Response.Write("<script type='text/javascript'>")
-           Response.Write("setTimeout(function() { window.location.href = 'hiloStart.html'; }, 3000);") ' Delay of 3000 milliseconds (3 seconds)
-           Response.Write("</script>")
-        
-        
-
-
-            Else
-                ' Set up the game with new values
-                min = 1
-                Randomize
-                randomNumber = Int((maxNumber - min + 1) * Rnd + min)
-
-                ' Store values in session
-                Session("randomNumber") = randomNumber
-                Session("min") = min
-                Session("max") = maxNumber
-
-                Response.Write("Hi " & name & ", ready to guess the random number!<br>")
             End If
         End If
     End If
@@ -139,7 +132,7 @@ backend()
         //   N/A : nothing
         function pageLoad() {
             document.getElementById("playAgain").style.visibility = "hidden";
-            document.getElementById("greeting").style.fontSize = '30px'; // Adjust the size as needed
+            
         }
 
         // FUNCTION      : numberChecker

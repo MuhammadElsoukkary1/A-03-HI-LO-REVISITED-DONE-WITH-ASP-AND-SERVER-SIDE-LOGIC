@@ -15,7 +15,6 @@
 Session.LCID = 1033 ' Optional: set the locale
 Session.Timeout = 20 ' Optional: session timeout in minutes
 
-
 ' FUNCTION      : processGuess
 ' DESCRIPTION   : 
 '   This function manages the backend logic for the number guessing game.
@@ -26,62 +25,48 @@ Session.Timeout = 20 ' Optional: session timeout in minutes
 ' RETURNS       : 
 '   N/A : nothing
 Sub processGuess()
-' Declare all variables properly
-Dim randomNumber, maxNumber, min, name, guessNumber
+    ' Declare all variables properly
+    Dim randomNumber, maxNumber, min, name, guessNumber
 
-' Retrieve session variables
-randomNumber = CInt(Session("randomNumber"))
-min = CInt(Session("min"))
-maxNumber = CInt(Session("max"))
-name = Session("name")
-
-    If (maxNumber < 1) Then
-        Response.Write("<h2 style='color: red;'>Error: You entered a number less than 1 !</h2>")
-        Response.Write("<script type='text/javascript'>")
-        Response.Write("setTimeout(function() { window.location.href = 'hiloStart.html'; }, 3000);") ' Delay of 3000 milliseconds (3 seconds)
-        Response.Write("</script>")
-
-        ElseIf (maxNumber <= 1) Then
-        Response.Write("<h2 style='color: red;'>Error: You entered 1  !</h2>")
-        Response.Write("<script type='text/javascript'>")
-        Response.Write("setTimeout(function() { window.location.href = 'hiloStart.html'; }, 3000);") ' Delay of 3000 milliseconds (3 seconds)
-        Response.Write("</script>")
-
-Else
+    ' Retrieve session variables
+    randomNumber = CInt(Session("randomNumber"))
+    min = CInt(Session("min"))
+    maxNumber = CInt(Session("max"))
+    name = Session("name")
     Response.Write("Hi " & name & ", ready to guess the random number!<br>")
 
-    ' Handle guesses
-    If (Request.Form("guessNumber") <> "") Then
-        guessNumber = CInt(Request.Form("guessNumber"))
+        ' Handle guesses
+        If (Request.Form("guessNumber") <> "") Then
+            guessNumber = CInt(Request.Form("guessNumber"))
 
-        ' Validate the guess
-        If (guessNumber < min Or guessNumber > maxNumber) Then
-            Response.Write("<h2>Error: Your guess is out of range!</h2>")
-        ElseIf guessNumber < randomNumber Then
-            Response.Write("<h2>Your guess of " & guessNumber & " is too low!</h2>")
-            min = guessNumber ' Update minimum range
-        ElseIf guessNumber > randomNumber Then
-            Response.Write("<h2>Your guess of " & guessNumber & " is too high!</h2>")
-            maxNumber = guessNumber ' Update maximum range
-        Else
-            Response.Write("<h2>Congratulations! You guessed the number: " & randomNumber & "!</h2>")
-            Response.Redirect "playAgainPage.html" 
-            ' Clear session variables for a new game
-            Session("randomNumber") = Null
-            Session("min") = Null
-            Session("max") = Null
-            Response.Redirect "playAgainPage.html" 
+            ' Validate the guess
+            If (guessNumber < min Or guessNumber > maxNumber) Then
+                Response.Write("<h2>Error: Your guess is out of range!</h2>")
+            ElseIf guessNumber < randomNumber Then
+                Response.Write("<h2>Your guess of " & guessNumber & " is too low!</h2>")
+                min = guessNumber + 1 ' Update minimum range
+            ElseIf guessNumber > randomNumber Then
+                Response.Write("<h2>Your guess of " & guessNumber & " is too high!</h2>")
+                maxNumber = guessNumber - 1 ' Update maximum range
+            Else
+                Response.Write("<h2>Congratulations! You guessed the number: " & randomNumber & "!</h2>")
+                ' Clear session variables for a new game
+                Session("randomNumber") = Null
+                Session("min") = Null
+                Session("max") = Null
+                Response.Redirect "playAgainPage.html"
+            End If
+
+            ' Update session with new range only if the game is not over
+            If guessNumber <> randomNumber Then
+                Session("min") = min
+                Session("max") = maxNumber
+                Response.Write("<p>Your current guessing range is: " & min & " to " & maxNumber & "</p>")
+            End If
         End If
-
-        ' Update session with new range
-        Session("min") = min
-        Session("max") = maxNumber
-
-        Response.Write("<p>Your current guessing range is: " & min & " to " & maxNumber & "</p>")
-    End If
-End If
 ' end the function
 End Sub
+
 ' call the sub
 processGuess()
 %>
@@ -154,16 +139,16 @@ processGuess()
     }
 </script>
 
- <div class="container">
-<form action="processGuess.asp" method="POST" name="guessForm" onsubmit="return numberChecker()">
-    <p>Enter the number that you want to guess:</p>
-    <input type="text" name="guessNumber" value="" size="20" id="guessNumber" autofocus />
-    <input type="submit" value="Submit" />
-    <h2 id="numberMsg"></h2>
-    <h2 id="nameError" style="color: red;"></h2>
-    <div id="inputContainer"></div>
-</form>
- </div>
+<div class="container">
+    <form action="processGuess.asp" method="POST" name="guessForm" onsubmit="return numberChecker()">
+        <p>Enter the number that you want to guess:</p>
+        <input type="text" name="guessNumber" value="" size="20" id="guessNumber" autofocus />
+        <input type="submit" value="Submit" />
+        <h2 id="numberMsg"></h2>
+        <h2 id="nameError" style="color: red;"></h2>
+        <div id="inputContainer"></div>
+    </form>
+</div>
 
 </body>
 </html>
