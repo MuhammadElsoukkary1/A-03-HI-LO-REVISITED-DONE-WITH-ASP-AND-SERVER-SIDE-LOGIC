@@ -20,23 +20,23 @@ body {
 }
 
 h2 {
-    color: white; /* Adjust text color for visibility */
+    color: white;
 }
 
 input[type="text"] {
     padding: 10px;
     margin: 10px 0;
-    width: 80%; /* Full width for inputs */
+    width: 80%; 
 }
 
 input[type="submit"] {
     padding: 10px 20px;
     background-color: blue; /* Button background color */
-    color: white; /* Button text color */
+    color: white; 
     border: none;
     cursor: pointer;
 }
 
 input[type="submit"]:hover {
-    background-color: darkblue; /* Button hover color */
+    background-color: darkblue; 
 }
