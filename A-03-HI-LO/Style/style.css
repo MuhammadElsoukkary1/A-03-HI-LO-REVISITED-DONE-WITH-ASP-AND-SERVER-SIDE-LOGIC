@@ -1,0 +1,67 @@
+/* Apply background image or fallback color to the entire page */
+body {
+    background-image: url('A-03-HI-LO\images\numbers.png');
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Full viewport height */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Arial', sans-serif;
+    display: flex; /* Center the prompt box */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style the prompt box */
+.prompt-box {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    border: 5px solid navy; /* Bold border */
+    border-radius: 15px; /* Rounded corners */
+    padding: 30px; /* Padding inside the box */
+    width: 350px; /* Fixed width */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    text-align: center; /* Center all content inside the box */
+}
+
+/* Style the prompt text */
+#prompt {
+    color: darkblue;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 20px; /* Space below the prompt */
+}
+
+/* Style input fields and buttons */
+input[type="text"],
+input[type="submit"] {
+    width: 100%; /* Full width */
+    padding: 12px;
+    margin-top: 15px;
+    border: 2px solid #aaa;
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Add focus and hover effects */
+input[type="text"]:focus,
+input[type="submit"]:hover {
+    border-color: #0056b3;
+    box-shadow: 0 0 6px #0056b3;
+}
+
+/* Error messages styling */
+#numberMsg, #nameError {
+    color: crimson;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 480px) {
+    .prompt-box {
+        width: 90%; /* Adjust width for mobile */
+        padding: 20px; /* Less padding on small screens */
+    }
+}
